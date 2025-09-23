@@ -56,15 +56,22 @@ nav a {
 }
 
 
-nav a:hover,
-nav a.active {
-    color: var(--tertiary-color);  /* gold when hover/active */
+nav a {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-family: 'Playfair Display', serif;
+  color: #F1E4C3;       /* default link color */
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-
-nav a.active,
 nav a:hover {
-   color: var(--tertiary-color);
+  color: var(--tertiary-color);   /* hover color */
+  border-bottom:#699260 solid 1px; ;
+}
+
+nav a.active {
+  color: var(--secondary-color);    /* active (current page) color */
 }
 
 /* Hero Section */
