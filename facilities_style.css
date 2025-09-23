@@ -1,0 +1,209 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+/* a {
+    text-decoration: none;
+    color: #007bff;
+} */
+
+
+/* .mt-5 main-heading{
+        font-family: sans-serif;
+
+} */
+/* Header and Navigation */
+header{
+  min-height: 90svh;
+  height: 90vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url(https://www.shutterstock.com/image-photo/outdoor-bar-hotel-sharm-el-600nw-2250525219.jpg);
+  background-size: cover;      
+  background-position: center;
+    font-family: 'Playfair Display';
+    font-weight: 300px;
+    color: #FFFFEC;  /* for the background */
+    --secondary-color: #F1E4C3;
+    --tertiary-color: #8f7c54;
+    --accent-color: #2A9D8F;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+nav li {
+    margin: 0 1rem;
+}
+
+nav a {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-family: light, sans-serif;
+    color: #F1E4C3;                   
+    transition: background-color 0.3s ease;
+}
+
+
+nav a:hover,
+nav a.active {
+    color: var(--tertiary-color);  /* gold when hover/active */
+}
+
+
+nav a.active,
+nav a:hover {
+   color: var(--tertiary-color);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(to right,#efefd5, #F1E4C3, #c0a977);
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Facilities Grid */
+.facilities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.facility-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.facility-card h2 {
+    color: #23292e;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.sub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.sub-card {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.sub-card h3 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.sub-card p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Images */
+.card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.card-image.full-width {
+    height: 300px;
+    grid-column: 1 / -1; /* Span full width in grid */
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+.hero-text {
+  height: 100%; /* take full height of header */
+  display: flex;
+  justify-content: center;  /* center horizontally */
+  align-items: center;      /* center vertically */
+  text-align: center;
+}
+
+.hero-text h1 {
+  color: var(--secondary-color);
+  font-size: 4rem;     /* make it big */
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.2); /* optional: dark backdrop */
+  
+  padding: 15px 30px;
+  border-radius: 20px;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .facilities-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav li {
+        margin: 0.5rem 0;
+    }
+
+    .sub-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 2rem 1rem;
+    }
+
+    .facility-card {
+        padding: 1rem;
+    }
+}
