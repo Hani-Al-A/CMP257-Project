@@ -33,7 +33,7 @@ h1{
     font-size: 5.5em;
 }
 
-header{
+.main-header{
   min-height: 90svh;
   height: 90vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url(https://digital.ihg.com/is/image/ihg/vignette-collection-dubai-8894910396-16x9?);
