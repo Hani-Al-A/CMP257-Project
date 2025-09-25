@@ -61,3 +61,11 @@ nav .active{
 .nav-link:focus{
   color: var(--accent-color) !important;
 }
+
+.footer-container{
+    background-color: var(--accent-color);
+    color: white;
+}
+.footer-container a{
+    color: white;
+}
