@@ -47,14 +47,6 @@ nav li {
     margin: 0 1rem;
 }
 
-nav a {
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    font-family: light, sans-serif;
-    color: #F1E4C3;                   
-    transition: background-color 0.3s ease;
-}
-
 
 nav a {
   padding: 0.5rem 1rem;
@@ -71,7 +63,7 @@ nav a:hover {
 }
 
 nav a.active {
-  color: var(--secondary-color);    /* active (current page) color */
+    color: var(--tertiary-color) !important;
 }
 
 /* Hero Section */
