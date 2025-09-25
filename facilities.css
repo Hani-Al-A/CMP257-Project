@@ -66,7 +66,6 @@ nav a.active {
     color: var(--tertiary-color) !important;
 }
 
-/* Hero Section */
 .hero {
     background: linear-gradient(to right,#efefd5, #F1E4C3, #c0a977);
     text-align: center;
