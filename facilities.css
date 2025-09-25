@@ -144,14 +144,7 @@ nav a.active {
     grid-column: 1 / -1; /* Span full width in grid */
 }
 
-/* Footer */
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
-}
+
 
 .hero-text {
   height: 100%; /* take full height of header */
