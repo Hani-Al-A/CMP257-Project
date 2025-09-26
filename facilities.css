@@ -1,69 +1,10 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f4f4f4;
-}
-
-/* a {
-    text-decoration: none;
-    color: #007bff;
-} */
-
-
-/* .mt-5 main-heading{
-        font-family: sans-serif;
-
-} */
-/* Header and Navigation */
-header{
+.facilities-header{
   min-height: 90svh;
   height: 90vh;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url(https://www.shutterstock.com/image-photo/outdoor-bar-hotel-sharm-el-600nw-2250525219.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url(https://www.shutterstock.com/image-photo/outdoor-bar-hotel-sharm-el-600nw-2250525219.jpg);
   background-size: cover;      
   background-position: center;
-    font-family: 'Playfair Display';
-    font-weight: 300px;
-    color: #FFFFEC;  /* for the background */
-    --secondary-color: #F1E4C3;
-    --tertiary-color: #8f7c54;
-    --accent-color: #2A9D8F;
-}
 
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    padding: 1rem 0;
-}
-
-nav li {
-    margin: 0 1rem;
-}
-
-
-nav a {
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  font-family: 'Playfair Display', serif;
-  color: #F1E4C3;       /* default link color */
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-nav a:hover {
-  color: var(--tertiary-color);   /* hover color */
-  border-bottom:#699260 solid 1px; ;
-}
-
-nav a.active {
-    color: var(--tertiary-color) !important;
 }
 
 .hero {
@@ -75,6 +16,7 @@ nav a.active {
 .hero h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    color: black !important;
 }
 
 .hero p {
