@@ -1,0 +1,40 @@
+/* Page title look (optional) */
+.main-heading {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+}
+
+/* Contact section background image (only this block) */
+.contact-section {
+  background: url("images/beach.jpg") center/cover no-repeat;
+  position: relative;
+  min-height: 60vh;
+}
+
+/* Optional dark overlay for better text contrast */
+.contact-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* Make content sit above the overlay */
+.contact-section > .container,
+.contact-section * {
+  position: relative;
+  z-index: 1;
+}
+
+/* The white card around the form */
+.contact-card {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* Tighter spacing on small screens */
+@media (max-width: 576px) {
+  .contact-section { padding: 2rem 1rem; }
+  .contact-card    { padding: 1rem !important; }
+}
