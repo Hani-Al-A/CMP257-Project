@@ -1,40 +1,97 @@
-/* Page title look (optional) */
-.main-heading {
-  font-family: "Playfair Display", serif;
-  font-weight: 700;
-}
-
-/* Contact section background image (only this block) */
-.contact-section {
-  background: url("images/beach.jpg") center/cover no-repeat;
-  position: relative;
-  min-height: 60vh;
-}
-
-/* Optional dark overlay for better text contrast */
-.contact-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-}
-
-/* Make content sit above the overlay */
-.contact-section > .container,
-.contact-section * {
-  position: relative;
-  z-index: 1;
-}
-
-/* The white card around the form */
-.contact-card {
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 12px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-}
-
-/* Tighter spacing on small screens */
-@media (max-width: 576px) {
-  .contact-section { padding: 2rem 1rem; }
-  .contact-card    { padding: 1rem !important; }
-}
+:root {
+    --primary-color: #FFFFEC;
+    --secondary-color: #F1E4C3;
+    --tertiary-color: #c0a977;
+    --accent-color: #2A9D8F;
+  }
+  
+  /* Body */
+  body {
+    margin: 0;
+    font-family: "Nunito", Arial, sans-serif;
+    color: #333;
+  }
+  
+  /* NAVBAR (transparent over hero) */
+  .navbar {
+    background: transparent !important;
+    z-index: 10;
+  }
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: white !important;
+  }
+  .nav-link {
+    margin-right: 15px;
+    color: white !important;
+    transition: color 0.3s;
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    color: #ffd700 !important;
+  }
+  
+  /* HERO CONTACT SECTION */
+  .contact-hero {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
+      url("images/beach.jpg") no-repeat center center;
+    background-size: cover;
+    padding: 100px 20px;
+    position: relative;
+  }
+  .hero-heading {
+    font-family: "Playfair Display", serif;
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+  }
+  
+  /* CONTACT FORM */
+  .contact-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 100%;
+  }
+  .contact-card .btn {
+    background: #0d47a1;
+    color: white;
+    font-weight: bold;
+    border: none;
+  }
+  .contact-card .btn:hover {
+    background: #1565c0;
+  }
+  
+  /* CONTACT INFO */
+  .contact-info {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+  }
+  .contact-info strong {
+    color: #ffd700;
+  }
+  
+  /* FOOTER */
+  .footer-container {
+    background: none;
+  }
+  .footer-container footer {
+    background: var(--accent-color);
+    color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .footer-container a {
+    color: white;
+    transition: color 0.3s;
+  }
+  .footer-container a:hover {
+    color: #ffd700;
+  }
