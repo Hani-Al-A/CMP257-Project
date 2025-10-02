@@ -1,0 +1,33 @@
+#rooms-header{
+  min-height: 90svh;
+  height: 90vh;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.35)),
+    url(https://media.cnn.com/api/v1/images/stellar/prod/4b-mandarin-oriental-jumeira-dubai-the-royal-penthouse-bedroom.jpg?q=w_1110,c_fill);
+  background-size: cover;
+  background-position: center;
+}
+
+.card-title{
+  font-family: "Playfair Display","Lexend Deca",sans-serif;
+  font-weight: 400;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 185px;         
+  object-fit: cover; 
+}
+
+.price{
+  color: var(--tertiary-color);
+}
+
+.btn-success{
+  background-color: #2A9D8F;
+  border-color: #2A9D8F;
+}
+.btn-success:hover{
+  background-color: #23877F; 
+  border-color: #23877F;
+}
