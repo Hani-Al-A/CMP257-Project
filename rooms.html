@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Hurricane&family=Lexend+Deca:wght@100..900&family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:wght@400;600;700&family=Radio+Canada:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+   
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="rooms.css" />
+    <title>Beach Resort — Rooms</title>
+  </head>
+  <body>
+    <header class="px-4 pt-2 pb-5 mb-5 text-center " id="rooms-header">
+      <nav class="navbar navbar-expand-lg bg-body-transparent pb-5">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html"
+            ><img src="" alt="" width="50"
+          /></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-center"
+            id="navbarNavAltMarkup"
+          >
+            <div class="navbar-nav">
+              <a
+                class="nav-link mx-3"
+                aria-current="page"
+                href="index.html"
+                >Home</a
+              >
+              <a class="nav-link mx-3 active" href="rooms.html">Rooms</a>
+              <a class="nav-link mx-3" href="facilities.html">Facilities</a>
+              <a class="nav-link mx-3" href="dinings.html">Dining</a>
+              <a class="nav-link mx-3" href="contactus.html">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <h1 class="mt-5 main-heading">Find Your Perfect Room</h1>
+    </header>
+
+    <main class="container pb-5">
+      <h2 class="pb-3 border-bottom dark-header">Available Rooms</h2>
+
+      <div class="row g-4 mt-1">
+        <!-- Room 1 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <img src="https://www.westportcoasthotel.ie/upload/slide_images/coast-queen.jpg" class="card-img-top" alt="Classic Room">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title dark-header">Classic Room</h5>
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="badge bg-light text-dark border">Sleeps 2</span>
+                <span class="badge bg-light text-dark border">Free WiFi</span>
+              </div>
+              <div class="mt-auto d-flex justify-content-between align-items-end">
+                <div>
+                  <span class="fs-5 fw-semibold price">AED 149</span>
+                  <small class="text-muted">/ night</small>
+                </div>
+                <a href="" class="btn btn-success btn-sm book-btn">Book</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room 2 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <img src="https://www.auroraanguilla.com/wp-content/uploads/2023/11/MW-Tower-Ocean-View-Deluxe-King-_2.webp" class="card-img-top" alt="Oceanview Deluve Room">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title dark-header">Oceanview Deluxe Room</h5>
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="badge bg-light text-dark border">Sleeps 2</span>
+                <span class="badge bg-light text-dark border">Balcony</span>
+              </div>
+              <div class="mt-auto d-flex justify-content-between align-items-end">
+                <div>
+                  <span class="fs-5 fw-semibold price">AED 199</span>
+                  <small class="text-muted">/ night</small>
+                </div>
+                <a href="" class="btn btn-success btn-sm book-btn">Book</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room 3 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <img src="data:image/jpeg;base64,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" class="card-img-top" alt="Family Suite">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title dark-header">Family Suite</h5>
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="badge bg-light text-dark border">Sleeps 4</span>
+                <span class="badge bg-light text-dark border">Balcony</span>
+              </div>
+              <div class="mt-auto d-flex justify-content-between align-items-end">
+                <div>
+                  <span class="fs-5 fw-semibold price">AED 259</span>
+                  <small class="text-muted">/ night</small>
+                </div>
+                <a href="" class="btn btn-success btn-sm book-btn">Book</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room 4 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <img src="https://assets.anantara.com/image/upload/q_auto,f_auto,c_limit,w_1045/media/minor/anantara/images/anantara-veli-maldives-resort/accommodation/new-images-post-refurbishment/beach-pool-villa/anantara_veli_maldives_beach_pool_villa_bedroom_1120x608.jpg" class="card-img-top" alt="Beach Villa">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title dark-header">Beach Villa</h5>
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="badge bg-light text-dark border">Sleeps 2–3</span>
+                <span class="badge bg-light text-dark border">Private pool</span>
+              </div>
+              <div class="mt-auto d-flex justify-content-between align-items-end">
+                <div>
+                  <span class="fs-5 fw-semibold price">AED 399</span>
+                  <small class="text-muted">/ night</small>
+                </div>
+                <a href="" class="btn btn-success btn-sm book-btn">Book</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room 5 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <img src="https://artizanhotels.com/img/content/Photo11-min_en_1727887195.jpg" class="card-img-top" alt="Twin Room">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title dark-header">Twin Room</h5>
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="badge bg-light text-dark border">Sleeps 2</span>
+                <span class="badge bg-light text-dark border">Free WIFI</span>
+              </div>
+              <div class="mt-auto d-flex justify-content-between align-items-end">
+                <div>
+                  <span class="fs-5 fw-semibold price">AED 129</span>
+                  <small class="text-muted">/ night</small>
+                </div>
+                <a href="" class="btn btn-success btn-sm book-btn">Book</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room 6 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <img src="https://manilahotel.b-cdn.net/wp-content/uploads/2023/07/TMH_Presidential-Suite_Bedroom-1024x682.jpg" class="card-img-top" alt="Presidential Suite">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title dark-header">Presidential Suite</h5>
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="badge bg-light text-dark border">Sleeps 5</span>
+                <span class="badge bg-light text-dark border">Dining area</span>
+              </div>
+              <div class="mt-auto d-flex justify-content-between align-items-end">
+                <div>
+                  <span class="fs-5 fw-semibold price">AED 699</span>
+                  <small class="text-muted">/ night</small>
+                </div>
+                <a href="" class="btn btn-success btn-sm book-btn">Book</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div class="container-fluid footer-container">
+      <footer class="py-3 mt-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item">
+            <a href="#" class="nav-link px-3 mx-2">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-3 mx-2">Features</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-3 mx-2">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-3 mx-2">FAQs</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-3 mx-2">About</a>
+          </li>
+        </ul>
+        <p class="text-center">© 2025 Beach Resort, Inc</p>
+      </footer>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
