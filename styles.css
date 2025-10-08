@@ -66,3 +66,11 @@ nav .active{ color: var(--tertiary-color) !important; }
   color: #fff;
   text-decoration: underline;
 }
+
+.btn-outline-primary{
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+.btn-outline-primary:hover{
+  background-color: var(--accent-color);
+}
