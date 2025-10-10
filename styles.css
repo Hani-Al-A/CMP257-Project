@@ -11,7 +11,7 @@ body{
   margin: 0;
 }
 
-h1,h2,h3,h4,h5,h6{
+h1,h2,h3,h4,h5,h6,.card_header{
   color: var(--secondary-color) !important;
   font-family: "Playfair Display","Lexend Deca",sans-serif;
   font-weight: 300;
@@ -73,4 +73,38 @@ nav .active{ color: var(--tertiary-color) !important; }
 }
 .btn-outline-primary:hover{
   background-color: var(--accent-color);
+}
+
+
+
+.card_header{
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.card-hover .hover-overlay {
+  opacity: 0;
+  transition: .3s;
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+}
+.card-hover .hover-overlay .card-title {
+  color: #fff;
+  transform: translateY(-8px);
+  transition: .3s;
+}
+
+.card-hover:hover .hover-overlay{
+  opacity: 1;
+}
+.card-hover:hover .hover-overlay .card-title{
+  transform: translateY(0);
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .card-hover .hover-overlay {
+    opacity: 1;
+  }
+  .card-hover .hover-overlay .card-title {
+    transform: none;
+  }
 }
