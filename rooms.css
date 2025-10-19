@@ -31,3 +31,10 @@
   background-color: #23877F; 
   border-color: #23877F;
 }
+.room-card { 
+  transition: .25s; 
+}
+.room-card:hover {
+  box-shadow: var(--bs-box-shadow-lg); 
+  transform: translateY(-4px);         
+}
