@@ -75,7 +75,9 @@ nav .active{ color: var(--tertiary-color) !important; }
   background-color: var(--accent-color);
 }
 
-
+.border-secondary{
+  border-color: var(--accent-color) !important;
+}
 
 .card_header{
   font-size: 1.5rem;
@@ -83,9 +85,9 @@ nav .active{ color: var(--tertiary-color) !important; }
 }
 
 .card-hover .hover-overlay {
-  opacity: 0;
+  opacity: 1;
   transition: .3s;
-  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+  background: linear-gradient(var(--accent-color) 0%, rgba(0, 0, 0, 0) 25%); /* linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0)); */
 }
 .card-hover .hover-overlay .card-title {
   color: #fff;
@@ -94,7 +96,7 @@ nav .active{ color: var(--tertiary-color) !important; }
 }
 
 .card-hover:hover .hover-overlay{
-  opacity: 1;
+  opacity: 0;
 }
 .card-hover:hover .hover-overlay .card-title{
   transform: translateY(0);
