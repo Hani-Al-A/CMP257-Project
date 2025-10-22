@@ -1,0 +1,12 @@
+
+.dining-header{
+  min-height: 90svh;
+  height: 90vh;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.3)),
+    url(https://images.squarespace-cdn.com/content/v1/66dc2b49a78a2f161738aa35/03bb573e-ffae-435b-b900-90ecf447ce64/IMG_8259.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+
