@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Hurricane&family=Lexend+Deca:wght@100..900&family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="./dining.css" />
+    
+    <title>Beach Resort</title>
+  </head>
+  <body>
+    <!-- To add an image to the header, add a class and use css, look at main-header in css for example -->
+    <header class="px-4 pt-2 pb-5 mb-5 text-center dining-header">
+      <nav class="navbar navbar-expand-lg bg-body-transparent pb-5">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="../index.html"
+            ><img src="" alt="" width="50"
+          /></a>
+          <button
+            class="navbar-toggler filterTertiaryFromBlack"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-center"
+            id="navbarNavAltMarkup"
+          >
+            <div class="navbar-nav">
+                <!-- Set the current page to active, so if youre doing dining.html, then put the class active on it, and remove it from Home -->
+              <a
+                class="nav-link mx-3"
+                aria-current="page"
+                href="../index.html"
+                >Home</a
+              >
+              <a class="nav-link mx-3" href="../rooms.html">Rooms</a>
+              <a class="nav-link mx-3" href="../facilities.html">Facilities</a>
+              <a class="nav-link mx-3 active" href="dining.html">Dining</a>
+              <a class="nav-link mx-3" href="../contactus.html">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!--  Place the main heading here, if you want to use one  ---> 
+      <h1 class="mt-5 main-heading"> Dine With Us </h1>
+    </header>
+    <!-- Place your code after this line -->
+
+    <section class="py-5">
+      <div class="container">
+        <!-- Eataly -->
+        <div class="row align-items-center gy-4 mb-5">
+          <div class="col-md-6">
+            <img src="https://archello.s3.eu-central-1.amazonaws.com/images/2022/07/19/pedrali-eataly-at-the-beach-restaurants-archello.1658225175.882.jpg" class="img-fluid rounded shadow" alt="Eataly">
+          </div>
+          <div class="col-md-6">
+            <h3 class="text-body-emphasis mb-2">Eataly</h3>
+            <p>Authentic Italian cuisine with fresh pasta and wood-fired pizzas. Dinner reservations recommended.</p>
+            <div class="mb-3">
+              <span class="badge text-bg-primary me-2">Italian</span>
+              <span class="badge text-bg-primary me-2">Lunch & Dinner</span>
+              <span class="badge text-bg-primary">Vegetarian Options</span>
+            </div>
+            <div class="d-flex gap-3">
+              <a href="#menu-eataly" class="btn btn-outline-primary">View Menu</a>
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal" data-restaurant="Eataly">Book Reservation</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Origami Sushi -->
+        <div class="row align-items-center gy-4 mb-5 flex-md-row-reverse">
+          <div class="col-md-6">
+            <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" class="img-fluid rounded shadow" alt="Origami Sushi">
+          </div>
+          <div class="col-md-6">
+            <h3 class="text-body-emphasis mb-2">Origami Sushi</h3>
+            <p>Exotic Asian dishes, from sushi to stir-fries. Open for lunch and dinner with a vibrant, Japanese-inspired atmosphere.</p>
+            <div class="mb-3">
+              <span class="badge text-bg-primary me-2">Japanese</span>
+              <span class="badge text-bg-primary me-2">Lunch & Dinner</span>
+              <span class="badge text-bg-primary">Gluten-Free Options</span>
+            </div>
+            <div class="d-flex gap-3">
+              <a href="#menu-origami" class="btn btn-outline-primary">View Menu</a>
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal" data-restaurant="Origami Sushi">Book Reservation</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buffet Haven -->
+        <div class="row align-items-center gy-4 mb-4">
+          <div class="col-md-6">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de" class="img-fluid rounded shadow" alt="Buffet Haven">
+          </div>
+          <div class="col-md-6">
+            <h3 class="text-body-emphasis mb-2">Buffet Haven</h3>
+            <p>All-you-can-eat international buffet for breakfast, lunch, and dinner. Family favorites and dietary options available.</p>
+            <div class="mb-3">
+              <span class="badge text-bg-primary me-2">International</span>
+              <span class="badge text-bg-primary me-2">All Day</span>
+              <span class="badge text-bg-primary">Kids Friendly</span>
+            </div>
+            <div class="d-flex gap-3">
+              <a href="#menu-buffet" class="btn btn-outline-primary">View Stations</a>
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal" data-restaurant="Buffet Haven">Book Reservation</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+    <!-- Place your code before this line -->
+    <div class="container-fluid footer-container">
+      <footer class="py-3 mt-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item">
+            <a href="#" class="nav-link px-3 mx-2">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-3 mx-2">Features</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-3 mx-2">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-3 mx-2">FAQs</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-3 mx-2">About</a>
+          </li>
+        </ul>
+        <p class="text-center">© 2025 Beach Resort, Inc</p>
+      </footer>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

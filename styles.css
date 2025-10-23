@@ -110,3 +110,14 @@ nav .active{ color: var(--tertiary-color) !important; }
     transform: none;
   }
 }
+
+
+.filterTertiaryFromBlack{
+  filter:
+    invert(73%)
+    sepia(22%)
+    saturate(620%)
+    hue-rotate(356deg)
+    brightness(94%)
+    contrast(88%);
+}
