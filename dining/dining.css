@@ -1,3 +1,9 @@
+:root {
+  --primary-color: #FFFFEC;   /* page background */
+  --secondary-color: #F1E4C3; /* light beige for big headings */
+  --tertiary-color: #c0a977;  /* accent used in headings */
+  --accent-color: #2A9D8F;    /* footer bg + links accent */
+}
 
 .dining-header{
   min-height: 90svh;
@@ -9,4 +15,18 @@
   background-position: center;
 }
 
+.btn-outline-primary:hover{
+    border-color: var(--accent-color);
+}
+
+.btn-primary{
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.btn-primary:hover{
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  box-shadow: 3px 3px #00000091;
+}
 
