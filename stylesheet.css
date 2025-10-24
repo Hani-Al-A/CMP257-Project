@@ -57,3 +57,7 @@
   .hero-text h1{ font-size: 3rem; }
   .hero-content{ transform: translateY(-40px); }
 }
+
+
+.is-valid { border-color: #198754 !important; }   /* Bootstrap success */
+.is-invalid { border-color: #dc3545 !important; } /* Bootstrap danger */
