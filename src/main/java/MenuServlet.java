@@ -34,7 +34,6 @@ public class MenuServlet extends HttpServlet {
 		
 		int restaurantId = Integer.parseInt(idParam);
 		
-		// 2. Load Template
 		String htmlTemplate = loadHtmlTemplate();
 		String restaurantName = "Restaurant";
 		StringBuilder menuHtml = new StringBuilder();
@@ -42,16 +41,13 @@ public class MenuServlet extends HttpServlet {
 		try (Connection conn = DBConnection.getConnection();
 		     Statement stmt = conn.createStatement()) {
 			
-			// QUERY 1: Get Restaurant Name
-			// Notice we simply append the ID to the string. 
-			// (Note: In a real job, use PreparedStatement to prevent hacking, but this works for now)
 			String sqlRest = "SELECT name FROM restaurants WHERE restaurant_id = " + restaurantId;
 			ResultSet rsRest = stmt.executeQuery(sqlRest);
 			
 			if(rsRest.next()) {
 				restaurantName = rsRest.getString("name");
 			}
-			rsRest.close(); // Close this result set before starting the next one on the same statement
+			rsRest.close();
 			
 			// QUERY 2: Get Menu Items
 			String sqlMenu = "SELECT * FROM menu_items WHERE restaurant_id = " + restaurantId;
@@ -63,7 +59,6 @@ public class MenuServlet extends HttpServlet {
 				double price = rsMenu.getDouble("price");
 				String category = rsMenu.getString("category");
 				
-				// Build the HTML Card for this dish
 				menuHtml.append(getMenuItemCard(itemName, itemDesc, price, category));
 			}
 			
@@ -72,12 +67,10 @@ public class MenuServlet extends HttpServlet {
 			menuHtml.append("<p>Error loading menu: " + e.getMessage() + "</p>");
 		}
 		
-		// 3. Replace Placeholders
 		String finalHtml = htmlTemplate
-				.replace("{{restaurant_name}}", restaurantName)
+				.replaceAll("{{restaurant_name}}", restaurantName)
 				.replace("{{menu_list}}", menuHtml.toString());
 		
-		// 4. Send Response
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.print(finalHtml);
@@ -89,7 +82,7 @@ public class MenuServlet extends HttpServlet {
 	
 	private String loadHtmlTemplate() throws IOException {
 		try(InputStream is = getServletContext().getResourceAsStream("menu.html")){
-			if(is == null) return "<h1>Error: menu.html not found in WEB-INF</h1>";
+			if(is == null) return "<h1>Error: menu.html not found</h1>";
 			Scanner scanner = new Scanner(is).useDelimiter("\\A");
 			return scanner.hasNext() ? scanner.next() : ""; 
 		}

@@ -42,4 +42,15 @@
     <url-pattern>/menu</url-pattern>
     <url-pattern>/menu.html</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReservationServlet</display-name>
+    <servlet-name>ReservationServlet</servlet-name>
+    <servlet-class>ReservationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReservationServlet</servlet-name>
+    <url-pattern>/reservation</url-pattern>
+    <url-pattern>/reservation.html</url-pattern>
+  </servlet-mapping>
 </web-app>
