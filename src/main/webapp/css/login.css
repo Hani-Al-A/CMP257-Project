@@ -1,0 +1,71 @@
+:root {
+  --primary-color: #FFFFEC;   /* page background */
+  --secondary-color: #F1E4C3; /* light beige for big headings */
+  --tertiary-color: #c0a977;  /* accent used in headings */
+  --accent-color: #2A9D8F;    /* footer bg + links accent */
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: var(--primary-color);
+  margin: 0;
+  padding: 0;
+}
+
+.login-container {
+  max-width: 400px;
+  background-color: var(--secondary-color);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  margin: 80px auto;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: var(--tertiary-color);
+}
+
+.login-container .form-control {
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--tertiary-color);
+}
+
+.login-container button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  border: none;
+  color: white;
+  font-weight: 600;
+}
+
+.login-container button:hover {
+  background-color: #23867d; /* slightly darker accent */
+}
+
+.error-msg {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Footer styling using accent color */
+.footer-container {
+  background-color: var(--accent-color);
+  color: white;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.footer-container a {
+  color: white;
+}
+
+.footer-container a:hover {
+  text-decoration: underline;
+}
