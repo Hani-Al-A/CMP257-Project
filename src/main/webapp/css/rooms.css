@@ -38,3 +38,24 @@
   box-shadow: var(--bs-box-shadow-lg); 
   transform: translateY(-4px);         
 }
+
+/* Modal header */
+.modal-header {
+  background-color: var(--tertiary-color);
+  color: white;
+}
+
+/* Modal body */
+#loginFormModal .form-control {
+  border-radius: 8px;
+  border: 1px solid var(--tertiary-color);
+}
+
+/* Modal login button */
+#loginFormModal button {
+  background-color: var(--accent-color);
+  border: none;
+}
+#loginFormModal button:hover {
+  background-color: #23867d;
+}
