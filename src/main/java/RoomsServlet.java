@@ -75,36 +75,52 @@ public class RoomsServlet extends HttpServlet {
     }
 
     private String getRoomCard(int id, String name, int capacity, double price,
-                               String features, String imageUrl) {
+            String features, String imageUrl) {
 
-        if (features == null) {
-            features = "";
-        }
-
-        String priceText = String.format("%.0f", price);
-
-        String template =
-              "<div class='col-12 col-md-6 col-lg-4'>\n"
-            + "  <div class='card h-100 shadow-sm room-card'>\n"
-            + "    <img src='" + imageUrl + "' class='card-img-top' alt='" + name + "'>\n"
-            + "    <div class='card-body d-flex flex-column'>\n"
-            + "      <h5 class='card-title dark-header'>" + name + "</h5>\n"
-            + "      <div class='d-flex flex-wrap gap-2 mb-3'>\n"
-            + "        <span class='badge bg-light text-dark border'>Sleeps " + capacity + "</span>\n"
-            + "        <span class='badge bg-light text-dark border'>" + features + "</span>\n"
-            + "      </div>\n"
-            + "      <div class='mt-auto d-flex justify-content-between align-items-end'>\n"
-            + "        <div>\n"
-            + "          <span class='fs-5 fw-semibold price'>AED " + priceText + "</span>\n"
-            + "          <small class='text-muted'>/ night</small>\n"
-            + "        </div>\n"
-            + "        <a href='#' class='btn btn-success btn-sm book-btn' "
-            + "           data-bs-toggle='modal' data-bs-target='#loginModal'>Book</a>\n"
-            + "      </div>\n"
-            + "    </div>\n"
-            + "  </div>\n"
-            + "</div>\n";
-
-        return template;
-    }
+		if (features == null) {
+		features = "";
+		}
+		
+		String priceText = String.format("%.0f", price);
+		
+		StringBuilder featurePills = new StringBuilder();
+		String[] featureList = features.split(",");
+		
+		for (String feature : featureList) {
+		String cleanFeature = feature.trim();
+		if (!cleanFeature.isEmpty()) {
+		featurePills.append("<span class='badge bg-light text-dark border me-1'>")
+		         .append(cleanFeature)
+		         .append("</span>\n");
+		}
+		}
+		
+		String template =
+		"<div class='col-12 col-md-6 col-lg-4'>\n"
+		+ "  <div class='card h-100 shadow-sm room-card'>\n"
+		+ "    <img src='" + imageUrl + "' class='card-img-top' alt='" + name + "'>\n"
+		+ "    <div class='card-body d-flex flex-column'>\n"
+		+ "      <h5 class='card-title dark-header'>" + name + "</h5>\n"
+		
+		+ "      <div class='d-flex flex-wrap gap-2 mb-3'>\n"
+		+ "        <span class='badge bg-primary'>Sleeps " + capacity + "</span>\n"
+		
+		+          featurePills.toString()
+		
+		+ "      </div>\n"
+		
+		+ "      <div class='mt-auto d-flex justify-content-between align-items-end'>\n"
+		+ "        <div>\n"
+		+ "          <span class='fs-5 fw-semibold price'>AED " + priceText + "</span>\n"
+		+ "          <small class='text-muted'>/ night</small>\n"
+		+ "        </div>\n"
+		+ "        <a href='#"+ id +"' class='btn btn-success btn-sm book-btn' "
+		+ "           data-bs-toggle='modal' data-bs-target='#loginModal'>Book</a>\n"
+		+ "      </div>\n"
+		+ "    </div>\n"
+		+ "  </div>\n"
+		+ "</div>\n";
+		
+		return template;
+	}
 }
