@@ -3,31 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- google fonts -->
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Hurricane&family=Lexend+Deca:wght@100..900&family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:wght@400;600;700&family=Radio+Canada:wght@300..700&display=swap"
       rel="stylesheet"
     />
-   
+
+    <!-- Bootstrap -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
+
+    <!-- Project Styles -->
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="stylesheet" href="./css/rooms.css" />
+
     <title>Beach Resort — Rooms</title>
   </head>
+
   <body>
-    <header class="px-4 pt-2 pb-5 mb-5 text-center " id="rooms-header">
+    <!-- Header -->
+    <header class="px-4 pt-2 pb-5 mb-5 text-center" id="rooms-header">
       <nav class="navbar navbar-expand-lg bg-body-transparent pb-5">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index"
-            ><img src="" alt="" width="50"
-          /></a>
+          <a class="navbar-brand" href="index">
+            <img src="" alt="" width="50" />
+          </a>
+
           <button
             class="navbar-toggler"
             type="button"
@@ -39,165 +47,36 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
+
           <div
             class="collapse navbar-collapse justify-content-center"
             id="navbarNavAltMarkup"
           >
             <div class="navbar-nav">
-              <a
-                class="nav-link mx-3"
-                aria-current="page"
-                href="index"
-                >Home</a
-              >
+              <a class="nav-link mx-3" href="index">Home</a>
               <a class="nav-link mx-3 active" href="rooms">Rooms</a>
               <a class="nav-link mx-3" href="facilities.html">Facilities</a>
               <a class="nav-link mx-3" href="dining">Dining</a>
               <a class="nav-link mx-3" href="contactus.html">Contact Us</a>
-              <a class="nav-link mx-3" href="login.html" id="navLogin">Login</a>
-
             </div>
           </div>
         </div>
       </nav>
+
       <h1 class="mt-5 main-heading">Find Your Perfect Room</h1>
     </header>
 
+    <!-- Content -->
     <main class="container pb-5">
       <h2 class="pb-3 border-bottom dark-header">Available Rooms</h2>
 
+      <!-- This is where the servlet injects the cards -->
       <div class="row g-4 mt-1">
-<<<<<<< HEAD
         {{room_cards}}
-=======
-        <!-- Room 1 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm room-card">
-            <img src="https://www.westportcoasthotel.ie/upload/slide_images/coast-queen.jpg" class="card-img-top" alt="Classic Room">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title dark-header">Classic Room</h5>
-              <div class="d-flex flex-wrap gap-2 mb-3">
-                <span class="badge bg-light text-dark border">Sleeps 2</span>
-                <span class="badge bg-light text-dark border">Free WiFi</span>
-              </div>
-              <div class="mt-auto d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="fs-5 fw-semibold price">AED 149</span>
-                  <small class="text-muted">/ night</small>
-                </div>
-                  <a href="#" class="btn btn-success btn-sm book-btn" onclick="handleBook()">Book</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Room 2 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm room-card">
-            <img src="https://www.auroraanguilla.com/wp-content/uploads/2023/11/MW-Tower-Ocean-View-Deluxe-King-_2.webp" class="card-img-top" alt="Oceanview Deluve Room">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title dark-header">Oceanview Deluxe Room</h5>
-              <div class="d-flex flex-wrap gap-2 mb-3">
-                <span class="badge bg-light text-dark border">Sleeps 2</span>
-                <span class="badge bg-light text-dark border">Balcony</span>
-              </div>
-              <div class="mt-auto d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="fs-5 fw-semibold price">AED 199</span>
-                  <small class="text-muted">/ night</small>
-                </div>
-                  <a href="#" class="btn btn-success btn-sm book-btn" onclick="handleBook()">Book</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Room 3 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm room-card">
-            <img src="https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2017/10/26/1013/Grand-Hyatt-Dubai-P534-Consul-Room-Creek-View.jpg/Grand-Hyatt-Dubai-P534-Consul-Room-Creek-View.16x9.jpg?imwidth=1920" class="card-img-top" alt="Family Suite">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title dark-header">Family Suite</h5>
-              <div class="d-flex flex-wrap gap-2 mb-3">
-                <span class="badge bg-light text-dark border">Sleeps 4</span>
-                <span class="badge bg-light text-dark border">Balcony</span>
-              </div>
-              <div class="mt-auto d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="fs-5 fw-semibold price">AED 259</span>
-                  <small class="text-muted">/ night</small>
-                </div>
-                  <a href="#" class="btn btn-success btn-sm book-btn" onclick="handleBook()">Book</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Room 4 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm room-card">
-            <img src="https://assets.anantara.com/image/upload/q_auto,f_auto,c_limit,w_1045/media/minor/anantara/images/anantara-veli-maldives-resort/accommodation/new-images-post-refurbishment/beach-pool-villa/anantara_veli_maldives_beach_pool_villa_bedroom_1120x608.jpg" class="card-img-top" alt="Beach Villa">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title dark-header">Beach Villa</h5>
-              <div class="d-flex flex-wrap gap-2 mb-3">
-                <span class="badge bg-light text-dark border">Sleeps 2–3</span>
-                <span class="badge bg-light text-dark border">Private pool</span>
-              </div>
-              <div class="mt-auto d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="fs-5 fw-semibold price">AED 399</span>
-                  <small class="text-muted">/ night</small>
-                </div>
-                  <a href="#" class="btn btn-success btn-sm book-btn" onclick="handleBook()">Book</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Room 5 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm room-card">
-            <img src="https://artizanhotels.com/img/content/Photo11-min_en_1727887195.jpg" class="card-img-top" alt="Twin Room">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title dark-header">Twin Room</h5>
-              <div class="d-flex flex-wrap gap-2 mb-3">
-                <span class="badge bg-light text-dark border">Sleeps 2</span>
-                <span class="badge bg-light text-dark border">Free WIFI</span>
-              </div>
-              <div class="mt-auto d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="fs-5 fw-semibold price">AED 129</span>
-                  <small class="text-muted">/ night</small>
-                </div>
-                  <a href="#" class="btn btn-success btn-sm book-btn" onclick="handleBook()">Book</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Room 6 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm room-card">
-            <img src="https://manilahotel.b-cdn.net/wp-content/uploads/2023/07/TMH_Presidential-Suite_Bedroom-1024x682.jpg" class="card-img-top" alt="Presidential Suite">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title dark-header">Presidential Suite</h5>
-              <div class="d-flex flex-wrap gap-2 mb-3">
-                <span class="badge bg-light text-dark border">Sleeps 5</span>
-                <span class="badge bg-light text-dark border">Dining area</span>
-              </div>
-              <div class="mt-auto d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="fs-5 fw-semibold price">AED 699</span>
-                  <small class="text-muted">/ night</small>
-                </div>
-                  <a href="#" class="btn btn-success btn-sm book-btn" onclick="handleBook()">Book</a>
-              </div>
-            </div>
-          </div>
-        </div>
->>>>>>> 08c66a1af56b0832f03c6814d2cf3f737851428e
       </div>
     </main>
+
+    <!-- Footer -->
     <div class="container-fluid footer-container">
       <footer class="py-3 mt-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -220,11 +99,65 @@
         <p class="text-center">© 2025 Beach Resort, Inc</p>
       </footer>
     </div>
+
+    <!-- Bootstrap JS -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
-    <script src="./js/rooms.js"></script>
+
+    <!-- Login Modal -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div
+            class="modal-header"
+            style="background-color: var(--tertiary-color); color: white;"
+          >
+            <h5 class="modal-title" id="loginModalLabel">
+              Login to Book Room
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <form id="loginFormModal">
+              <input
+                type="text"
+                id="usernameModal"
+                class="form-control mb-3"
+                placeholder="Username"
+                required
+              />
+              <input
+                type="password"
+                id="passwordModal"
+                class="form-control mb-3"
+                placeholder="Password"
+                required
+              />
+              <button type="submit" class="btn btn-primary w-100">
+                Login
+              </button>
+              <p id="error-msg-modal" class="text-danger mt-2 text-center"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/login.js"></script>
   </body>
 </html>
