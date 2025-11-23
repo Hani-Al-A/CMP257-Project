@@ -27,7 +27,7 @@ public class ReservationServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String idParam = request.getParameter("id");
+		String idParam = request.getParameter("id");// comes in the query as ?id=X
 		if(idParam == null) { response.sendRedirect("dining"); return; }
 		
 		String restName = "the restaurant";
