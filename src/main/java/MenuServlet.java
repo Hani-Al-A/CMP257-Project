@@ -23,10 +23,8 @@ public class MenuServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 1. Get the Restaurant ID from the URL (menu?id=5)
 		String idParam = request.getParameter("id");
 		
-		// Validation: If no ID is provided, send them back to dining page
 		if(idParam == null || idParam.isEmpty()) {
 			response.sendRedirect("dining.html");
 			return;
@@ -49,7 +47,7 @@ public class MenuServlet extends HttpServlet {
 			}
 			rsRest.close();
 			
-			// QUERY 2: Get Menu Items
+			// Get Menu Items
 			String sqlMenu = "SELECT * FROM menu_items WHERE restaurant_id = " + restaurantId;
 			ResultSet rsMenu = stmt.executeQuery(sqlMenu);
 			
@@ -68,7 +66,7 @@ public class MenuServlet extends HttpServlet {
 		}
 		
 		String finalHtml = htmlTemplate
-				.replaceAll("{{restaurant_name}}", restaurantName)
+				.replace("{{restaurant_name}}", restaurantName)
 				.replace("{{menu_list}}", menuHtml.toString());
 		
 		response.setContentType("text/html");
