@@ -1,28 +1,26 @@
-document.getElementById('loginFormModal').addEventListener('submit', function(e) {
+// login.js
+
+document.getElementById('loginForm')?.addEventListener('submit', function(e) {
   e.preventDefault();
 
-  const username = document.getElementById('usernameModal').value.trim();
-  const password = document.getElementById('passwordModal').value.trim();
-  const errorMsg = document.getElementById('error-msg-modal');
+  const username = document.getElementById('username')?.value.trim();
+  const password = document.getElementById('password')?.value.trim();
+  const errorMsg = document.getElementById('error-msg');
 
   if(username && password) {
-    // Detect if admin
-    if(username.toLowerCase() === 'admin') {
+    // Admin check: username 'admin' and password '1234'
+    if(username.toLowerCase() === 'admin' && password === '1234') {
       sessionStorage.setItem('isAdmin', 'true');
     } else {
       sessionStorage.setItem('isAdmin', 'false');
     }
 
-    // Store username
+    // Store username for session
     sessionStorage.setItem('username', username);
 
-    // Close modal
-    const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-    loginModal.hide();
-
-    // Redirect to booking page
+    // Redirect back to index or rooms page
     window.location.href = 'index.html';
   } else {
-    errorMsg.textContent = 'Please enter a username and password';
+    errorMsg.textContent = 'Please enter username and password';
   }
 });
