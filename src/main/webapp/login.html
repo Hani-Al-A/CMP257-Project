@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Beach Resort</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <div class="container vh-100 d-flex justify-content-center align-items-center">
+    <div class="card p-4 shadow" style="min-width: 300px;">
+      <h3 class="mb-3 text-center" style="color: var(--tertiary-color);">Login</h3>
+      <form id="loginForm">
+        <input type="text" id="username" class="form-control mb-3" placeholder="Username" required>
+        <input type="password" id="password" class="form-control mb-3" placeholder="Password" required>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+        <p id="error-msg" class="text-danger mt-2 text-center"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="./js/login.js"></script>
+</body>
+</html>
