@@ -54,6 +54,13 @@ public class ReservationServlet extends HttpServlet {
 		String time = request.getParameter("time");
 		String guests = request.getParameter("guests");
 		
+		String restName = "the restaurant";
+		try (Connection conn = DBConnection.getConnection();
+			     Statement stmt = conn.createStatement()) {
+				ResultSet rs = stmt.executeQuery("SELECT name FROM restaurants WHERE restaurant_id=" + restaurantId);
+				if(rs.next()) restName = rs.getString("name");
+			} catch (Exception e) { e.printStackTrace(); }
+		
 		boolean success = false;
 		String message = "";
 		
@@ -76,7 +83,7 @@ public class ReservationServlet extends HttpServlet {
 				message = "Your table has been successfully booked. A confirmation has been sent to " + email;
 				
 				try {
-					sendConfirmationEmail(email, name, date, time, guests);
+					sendConfirmationEmail(email, name, restName, date, time, guests);
 				} catch (Exception e) {
 					System.out.println("EMAIL ERROR: " + e.getMessage());
 					e.printStackTrace();
@@ -120,7 +127,7 @@ public class ReservationServlet extends HttpServlet {
 		response.getWriter().print(html);
 	}
 
-	private void sendConfirmationEmail(String toEmail, String name, String date, String time, String guests) throws Exception {
+	private void sendConfirmationEmail(String toEmail, String name, String location, String date, String time, String guests) throws Exception {
 		final String fromEmail = System.getenv("SMTP_EMAIL");
 		final String password = System.getenv("SMTP_PASSWORD");
 		
@@ -147,6 +154,7 @@ public class ReservationServlet extends HttpServlet {
 		message.setSubject("Reservation Confirmed - Coastal Haven");
 		message.setText("Dear " + name + ",\n\n"
 				+ "Your reservation is confirmed!\n"
+				+ "Location: " + location +" - Coastal Haven\n"
 				+ "Date: " + date + "\n"
 				+ "Time: " + time + "\n"
 				+ "Guests: " + guests + "\n\n"

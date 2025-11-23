@@ -13,7 +13,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.Scanner;
 
-import com.mysql.cj.xdevapi.Statement;
 
 /**
  * Servlet implementation class DiningServlet
