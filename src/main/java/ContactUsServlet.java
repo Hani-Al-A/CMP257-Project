@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
 
-@WebServlet("/ContactUsServlet")
+@WebServlet("/contactus") 
 public class ContactUsServlet extends HttpServlet {
 
     @Override
@@ -25,28 +25,27 @@ public class ContactUsServlet extends HttpServlet {
                           HttpServletResponse response)
             throws ServletException, IOException {
 
+      
         request.setCharacterEncoding("UTF-8");
 
+  
         String fullName = request.getParameter("fullName");
         String email    = request.getParameter("email");
         String topic    = request.getParameter("topic");
         String message  = request.getParameter("message");
-        String consent  = request.getParameter("consent");
+        String consent  = request.getParameter("consent"); // null if unchecked
 
-        // ---- NEW: SEND EMAIL ----
+     
         boolean emailSent = false;
-        String emailError = "";
-
+        String emailError = null;
         try {
-            sendEmail(fullName, email, topic, message);
-            emailSent = true;
-        } catch (Exception e) {
-            emailSent = false;
-            emailError = e.getMessage();
-            e.printStackTrace();
+            emailSent = sendConfirmationEmail(fullName, email, topic, message);
+        } catch (Exception ex) {
+            emailError = ex.getMessage();
+            ex.printStackTrace();
         }
-        // --------------------------
 
+       
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -74,15 +73,19 @@ public class ContactUsServlet extends HttpServlet {
             out.println("    <p>You did not agree to be contacted.</p>");
         }
 
-        // ---- NEW FEEDBACK ABOUT EMAIL ----
         if (emailSent) {
-            out.println("<p class='text-success mt-3'>A confirmation email has been sent.</p>");
+            out.println("    <p class=\"mt-3 text-success\">A confirmation email was sent to "
+                    + escape(email) + ".</p>");
         } else {
-            out.println("<p class='text-danger mt-3'>Email could NOT be sent: " + escape(emailError) + "</p>");
+            out.println("    <p class=\"mt-3 text-muted\">We stored your message, "
+                    + "but could not send a confirmation email.");
+            if (emailError != null) {
+                out.println(" (Reason: " + escape(emailError) + ")");
+            }
+            out.println("</p>");
         }
-        // ------------------------------------
 
-        out.println("    <a href=\"contactus.html\" class=\"btn btn-primary mt-3\">Back to Contact Page</a>");
+        out.println("    <a href=\"contactus\" class=\"btn btn-primary mt-3\">Back to Contact Page</a>");
         out.println("  </div>");
         out.println("</div>");
 
@@ -90,26 +93,20 @@ public class ContactUsServlet extends HttpServlet {
         out.println("</html>");
     }
 
-    // SAME ESCAPE FUNCTION YOU WROTE
-    private String escape(String s) {
-        if (s == null) return "";
-        return s
-                .replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;");
-    }
+    private boolean sendConfirmationEmail(String fullName,
+                                          String toEmail,
+                                          String topic,
+                                          String msgText) throws Exception {
 
-    // ---- NEW EMAIL SENDING METHOD (same style as ReservationServlet) ----
-    private void sendEmail(String fullName, String fromEmail, String topic, String userMessage) throws Exception {
+        final String fromEmail = System.getenv("SMTP_EMAIL");
+        final String password  = System.getenv("SMTP_PASSWORD");
 
-        final String resortEmail = System.getenv("SMTP_EMAIL");     // Your Gmail
-        final String resortPass  = System.getenv("SMTP_PASSWORD");  // Gmail App Password
-
-        if (resortEmail == null || resortPass == null) {
-            throw new Exception("SMTP environment variables not set.");
+        if (fromEmail == null || password == null) {
+            
+            throw new Exception("SMTP_EMAIL / SMTP_PASSWORD not set.");
         }
 
+        
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -120,24 +117,40 @@ public class ContactUsServlet extends HttpServlet {
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(resortEmail, resortPass);
+                return new PasswordAuthentication(fromEmail, password);
             }
         });
 
-        Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress(resortEmail));
-        msg.setRecipients(Message.RecipientType.TO,
-                InternetAddress.parse(resortEmail)); // Sends to resort inbox
-        msg.setSubject("New Contact Inquiry: " + topic);
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(fromEmail));
+        message.setRecipients(Message.RecipientType.TO,
+                InternetAddress.parse(toEmail));
+        message.setSubject("We received your message – Beach Resort");
 
-        String body = "New inquiry submitted:\n\n"
-                + "Name: " + fullName + "\n"
-                + "Email: " + fromEmail + "\n"
+        String body = "Dear " + fullName + ",\n\n"
+                + "Thank you for contacting Beach Resort.\n"
                 + "Topic: " + topic + "\n\n"
-                + "Message:\n" + userMessage + "\n";
+                + "Your message:\n"
+                + msgText + "\n\n"
+                + "We will get back to you as soon as possible.\n\n"
+                + "Best regards,\n"
+                + "Beach Resort Team";
 
-        msg.setText(body);
+        message.setText(body);
 
-        Transport.send(msg);
+        Transport.send(message);
+        System.out.println("Contact email sent successfully to " + toEmail);
+
+        return true;
+    }
+
+
+    private String escape(String s) {
+        if (s == null) return "";
+        return s
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;");
     }
 }
