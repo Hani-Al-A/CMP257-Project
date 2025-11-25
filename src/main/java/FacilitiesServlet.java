@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
-@WebServlet("/facilities")
+@WebServlet(urlPatterns = { "/facilities", "/facilities.html" })
 public class FacilitiesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -24,7 +24,7 @@ public class FacilitiesServlet extends HttpServlet {
 
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM facilities ORDER BY category, facility_id")) {
+             ResultSet rs = stmt.executeQuery("SELECT * FROM facilities ORDER BY facility_id")) {
 
             int lastFacilityId = -1;
             StringBuilder subCardsHtml = new StringBuilder();
@@ -37,31 +37,22 @@ public class FacilitiesServlet extends HttpServlet {
             while (rs.next()) {
                 int id = rs.getInt("facility_id");
 
-                // If we reach a new facility, close previous one
                 if (id != lastFacilityId && lastFacilityId != -1) {
                     facilityCardsHtml.append(getFacilityCard(facilityName, facilityDescription,
                             facilityImage, subCardsHtml.toString(), facilityTimings, facilityAmenities));
-                    subCardsHtml = new StringBuilder(); // reset sub-cards
+                    subCardsHtml = new StringBuilder(); 
                 }
 
                 facilityName = rs.getString("name");
                 facilityDescription = rs.getString("description");
                 facilityImage = rs.getString("image_url");
-                facilityTimings = rs.getString("opening_timings");
+                facilityTimings = rs.getString("timings");
                 facilityAmenities = rs.getString("amenities");
 
-                // Add sub-card if exists
-                if (rs.getString("sub_name") != null) {
-                    subCardsHtml.append("<div class='sub-card'>")
-                                .append("<h3 class='dark-header'>").append(rs.getString("sub_name")).append("</h3>")
-                                .append("<p>").append(rs.getString("sub_description")).append("</p>")
-                                .append("</div>");
-                }
 
                 lastFacilityId = id;
             }
 
-            // Add the last facility
             if (lastFacilityId != -1) {
                 facilityCardsHtml.append(getFacilityCard(facilityName, facilityDescription,
                         facilityImage, subCardsHtml.toString(), facilityTimings, facilityAmenities));
@@ -92,7 +83,7 @@ public class FacilitiesServlet extends HttpServlet {
         StringBuilder detailsHtml = new StringBuilder();
         if ((timings != null && !timings.isEmpty()) || (amenities != null && !amenities.isEmpty())) {
             detailsHtml.append("<div class='text-center mt-3'>")
-                       .append("<button class='toggle-info btn custom-button'>View Opening Timings & Amenities</button>")
+                       .append("<button class='btn btn-primary toggle-info'>View Opening Timings & Amenities</button>")
                        .append("<div class='details' style='display: none; margin-top: 10px'>");
 
             if (timings != null && !timings.isEmpty()) {

@@ -39,6 +39,16 @@ h1{ font-size: 5.5em; }
   background-position: center;
 }
 
+.login-header{
+  min-height: 110vh;
+  height: 110vh;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.3)),
+    url(https://afar.brightspotcdn.com/dims4/default/78b69eb/2147483647/strip/false/crop/3508x2339+0+0/resize/1486x991!/quality/90/?url=https%3A%2F%2Fk3-prod-afar-media.s3.us-west-2.amazonaws.com%2Fbrightspot%2Ff5%2Fd5%2Fdc24d06b4c0e9b3d6b8769316b47%2Fwater-villa-7428-a4.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
 /* Navbar links unified across pages */
 .nav-link{
   color: var(--secondary-color);
@@ -109,6 +119,17 @@ nav .active{ color: var(--tertiary-color) !important; }
   .card-hover .hover-overlay .card-title {
     transform: none;
   }
+}
+
+.btn-primary{
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.btn-primary:hover{
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  box-shadow: 3px 3px #00000091;
 }
 
 

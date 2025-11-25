@@ -1,14 +1,16 @@
-
-
 import jakarta.servlet.ServletException;
-
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Scanner;
 
 /**
@@ -30,12 +32,31 @@ public class IndexServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Get the user logjn, if theyre logged in
-		String htmlTemplate = loadHtmlTemplate();
-		String name = "Valued Guest"; // if logged in
-		String welcomeMessage = "";
 		
-		if(name.isBlank()) {
+		HttpSession session = request.getSession(false); // get session, don't create new one
+		
+	    String name = "";
+	    int user_id = -1;
+	    String email = "";
+	    boolean isAdmin = false;
+	    
+	    String htmlTemplate = loadHtmlTemplate();
+		String welcomeMessage = "";
+	    
+	    if (session != null && session.getAttribute("user") != null) {
+	        name = (String) session.getAttribute("user");
+	        user_id = (int) session.getAttribute("userId");
+	        email = (String) session.getAttribute("email");
+	        isAdmin = (boolean) session.getAttribute("isAdmin");
+	        
+	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login?action=logout'>Logout</a>"); //show a logout if logged in
+	    } else {
+	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login'>Login</a>"); // show login if not logged in
+	    }
+	    
+	    
+		
+		if(user_id == -1) {
 			welcomeMessage = "Plan Your Stay With Us";
 		}
 		else{
