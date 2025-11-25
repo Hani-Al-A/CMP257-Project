@@ -19,14 +19,3 @@
     border-color: var(--accent-color);
 }
 
-.btn-primary{
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
-}
-
-.btn-primary:hover{
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
-  box-shadow: 3px 3px #00000091;
-}
-
