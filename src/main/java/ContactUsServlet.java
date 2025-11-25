@@ -14,28 +14,43 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Properties;
+import java.util.Scanner;
 
-@WebServlet("/contactus") 
+@WebServlet("/contactus")   
 public class ContactUsServlet extends HttpServlet {
 
+
+    @Override
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
+            throws ServletException, IOException {
+
+       
+        String html = loadTemplate("contactus.html"); 
+
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.print(html);
+    }
+
+    
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
 
-      
         request.setCharacterEncoding("UTF-8");
 
-  
+        
         String fullName = request.getParameter("fullName");
         String email    = request.getParameter("email");
         String topic    = request.getParameter("topic");
         String message  = request.getParameter("message");
         String consent  = request.getParameter("consent"); // null if unchecked
 
-     
         boolean emailSent = false;
         String emailError = null;
         try {
@@ -45,7 +60,6 @@ public class ContactUsServlet extends HttpServlet {
             ex.printStackTrace();
         }
 
-       
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -93,6 +107,20 @@ public class ContactUsServlet extends HttpServlet {
         out.println("</html>");
     }
 
+    
+    private String loadTemplate(String path) throws IOException {
+        
+        try (InputStream is = getServletContext().getResourceAsStream(path)) {
+            if (is == null) {
+               
+                return "<h1>Error: template not found: " + path + "</h1>";
+            }
+            Scanner scanner = new Scanner(is).useDelimiter("\\A");
+            return scanner.hasNext() ? scanner.next() : "";
+        }
+    }
+
+    
     private boolean sendConfirmationEmail(String fullName,
                                           String toEmail,
                                           String topic,
@@ -102,11 +130,9 @@ public class ContactUsServlet extends HttpServlet {
         final String password  = System.getenv("SMTP_PASSWORD");
 
         if (fromEmail == null || password == null) {
-            
             throw new Exception("SMTP_EMAIL / SMTP_PASSWORD not set.");
         }
 
-        
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -144,7 +170,7 @@ public class ContactUsServlet extends HttpServlet {
         return true;
     }
 
-
+    
     private String escape(String s) {
         if (s == null) return "";
         return s
