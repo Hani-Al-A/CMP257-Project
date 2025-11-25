@@ -16,17 +16,17 @@ public class ContactUsServlet extends HttpServlet {
                           HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Make sure we read Arabic/Unicode etc. correctly
+
         request.setCharacterEncoding("UTF-8");
 
-        // Read the form fields (must match name="" in your HTML)
+
         String fullName = request.getParameter("fullName");
         String email    = request.getParameter("email");
         String topic    = request.getParameter("topic");
         String message  = request.getParameter("message");
-        String consent  = request.getParameter("consent"); // null if unchecked
+        String consent  = request.getParameter("consent"); 
 
-        // Prepare the response page
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -62,7 +62,7 @@ public class ContactUsServlet extends HttpServlet {
         out.println("</html>");
     }
 
-    // Simple HTML escaping to avoid issues if user types <, >, etc.
+ 
     private String escape(String s) {
         if (s == null) return "";
         return s
