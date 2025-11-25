@@ -1,5 +1,18 @@
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 @WebServlet("/addMenuItem")
 public class AddMenuItemServlet extends HttpServlet {
+    boolean isAdmin = false;
+	    
+	    String htmlTemplate = loadHtmlTemplate();
+
+         if (session != null && session.getAttribute("user") != null) {
+            isAdmin = (boolean) session.getAttribute("isAdmin");
+         }
+         
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 

@@ -6,7 +6,14 @@ import java.sql.*;
 
 @WebServlet("/addFacility")
 public class AddFacilityServlet extends HttpServlet {
+boolean isAdmin = false;
+	    
+	    String htmlTemplate = loadHtmlTemplate();
 
+         if (session != null && session.getAttribute("user") != null) {
+            isAdmin = (boolean) session.getAttribute("isAdmin");
+         }
+         
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
