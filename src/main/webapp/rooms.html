@@ -108,57 +108,6 @@
       crossorigin="anonymous"
     ></script>
 
-    <!-- Login Modal -->
-    <div
-      class="modal fade"
-      id="loginModal"
-      tabindex="-1"
-      aria-labelledby="loginModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div
-            class="modal-header"
-            style="background-color: var(--tertiary-color); color: white;"
-          >
-            <h5 class="modal-title" id="loginModalLabel">
-              Login to Book Room
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-
-          <div class="modal-body">
-            <form id="loginFormModal">
-              <input
-                type="text"
-                id="usernameModal"
-                class="form-control mb-3"
-                placeholder="Username"
-                required
-              />
-              <input
-                type="password"
-                id="passwordModal"
-                class="form-control mb-3"
-                placeholder="Password"
-                required
-              />
-              <button type="submit" class="btn btn-primary w-100">
-                Login
-              </button>
-              <p id="error-msg-modal" class="text-danger mt-2 text-center"></p>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script src="./js/login.js"></script>
   </body>
 </html>
