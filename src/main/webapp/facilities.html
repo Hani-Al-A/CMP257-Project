@@ -25,9 +25,7 @@
     <header class="px-4 pt-2 pb-5 mb-5 text-center facilities-header">
       <nav class="navbar navbar-expand-lg bg-body-transparent pb-5">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index"
-            ><img src="" alt="" width="50"
-          /></a>
+          <a class="navbar-brand" href="index"><img src="" alt="" width="50" /></a>
           <button
             class="navbar-toggler filterTertiaryFromBlack"
             type="button"
@@ -39,10 +37,7 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div
-            class="collapse navbar-collapse justify-content-center"
-            id="navbarNavAltMarkup"
-          >
+          <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a class="nav-link mx-3 " aria-current="page" href="index">Home</a>
               <a class="nav-link mx-3" href="rooms">Rooms</a>
@@ -50,7 +45,6 @@
               <a class="nav-link mx-3" href="dining">Dining</a>
               <a class="nav-link mx-3" href="contactus.html">Contact Us</a>
               {{login_link}}
-
             </div>
           </div>
         </div>
@@ -68,174 +62,19 @@
         </p>
       </section>
 
-     <!--  <section class="facilities-grid">
-        Pools Section
-        <div class="facility-card">
-          <h2 class="dark-header">Pools</h2>
-          <div class="sub-grid">
-            <div class="sub-card">
-              <h3 class="dark-header">Main Pool</h3>
-              <p>
-                A spacious 25-meter pool with lounge chairs, perfect for laps or
-                lounging under the sun.
-              </p>
-              <img
-                src="images/main pool.jpeg"
-                alt="Main Pool"
-                class="card-image"
-              />
-            </div>
-            <div class="sub-card">
-              <h3 class="dark-header">Kids' Pool</h3>
-              <p>
-                A shallow, splash-friendly pool for children with fun water
-                games. Supervised during peak hours.
-              </p>
-              <img
-                src="images/kids pool.jpeg"
-                alt="Kids' Pool"
-                class="card-image"
-              />
-            </div>
-          </div>
-          <div class="text-center mt-3">
-            <button class="toggle-info" class="btn custom-button">
-              View Opening Timings & Amenities
-            </button>
+      <!-- Admin Add Facility Button -->
+      <div class="d-flex justify-content-end mb-4">
+        {{add_facility_button}}
+      </div>
 
-            <div class="details" style="display: none; margin-top: 10px">
-              <strong>Opening Timings:</strong>
-              <ul>
-                <li>Main Pool: 7:00 AM – 10:00 PM</li>
-                <li>Kids' Pool: 8:00 AM – 8:00 PM</li>
-              </ul>
-              <strong>Amenities:</strong>
-              <ul>
-                <li>Poolside Bar</li>
-                <li>Sun Loungers</li>
-                <li>Towel Service</li>
-                <li>Changing Rooms</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        Restaurants Section
-        <div class="facility-card">
-          <h2 class="dark-header">Restaurants</h2>
-          <div class="sub-grid">
-            <div class="sub-card">
-              <h3 class="dark-header">Eataly</h3>
-              <p>
-                Authentic Italian cuisine with fresh pasta and wood-fired
-                pizzas. Dinner reservations recommended.
-              </p>
-              <img src="images/Eataly.jpg" alt="Eataly" class="card-image" />
-            </div>
-            <div class="sub-card">
-              <h3 class="dark-header">Origami Sushi</h3>
-              <p>
-                Exotic Asian dishes, from sushi to stir-fries. Open for lunch
-                and dinner with a vibrant, japanese-inspired, atmosphere.
-              </p>
-              <img src="images/origami.webp" alt="Origami" class="card-image" />
-            </div>
-            <div class="sub-card">
-              <h3 class="dark-header">Buffet Haven</h3>
-              <p>
-                All-you-can-eat international buffet for breakfast, lunch, and
-                dinner. Family favorites and dietary options available.
-              </p>
-              <img
-                src="images/buffet.webp"
-                alt="Buffet Haven"
-                class="card-image"
-              />
-            </div>
-          </div>
-          <a class="redirect" href="dining.html"
-            >Click here to visit the dining section</a
-          >
-        </div>
+      <section class="facilities-grid">
+        {{facility_cards}}
+      </section>
 
-        Children's Playground Section
-        <div class="facility-card">
-          <h2 class="dark-header">Children's Playground</h2>
-          <p>
-            A safe, colorful outdoor area with swings, slides, climbing
-            structures, and shaded seating for supervising parents.
-          </p>
-          <img
-            src="images/playground.webp"
-            alt="Children's Playground"
-            class="card-image full-width"
-          />
-
-          <div class="text-center mt-3">
-            <button class="toggle-info" class="btn custom-button">
-              More Details
-            </button>
-
-            <div class="details" style="display: none; margin-top: 10px">
-              <strong>Opening Timings:</strong>
-              <ul>
-                7:00 AM – 8:00 PM
-              </ul>
-
-              <strong>Activities:</strong>
-              <ul>
-                Daily activities for kids aged 3-12
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        Additional Facilities
-        <div class="facility-card">
-          <h2 class="dark-header">Gym & Fitness Center</h2>
-          <p>
-            State-of-the-art equipment, yoga classes, and personal trainers.
-            24/7 access for guests.
-          </p>
-          <div class="sub-grid">
-            <div class="sub-card">
-              <img
-                src="images/gym1.jpg"
-                alt="Gym"
-                class="card-image full-width"
-              />
-            </div>
-
-            <div class="sub-card">
-              <img
-                src="images/gym2.jpg"
-                alt="Gym"
-                class="card-image full-width"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="facility-card">
-          <h2 class="dark-header">Spa & Wellness</h2>
-          <p>
-            Relax with massages, saunas, and treatments using natural products.
-            Book in advance for the best slots.
-          </p>
-          <img src="images/spa.jpg" alt="Spa" class="card-image full-width" />
-          <br />
-          <a class="redirect" href="tel:+971-50-123-4567">Call for bookings</a>
-        </div>
-      </section> -->
-      <!-- ... keep head and header as-is ... -->
-
-  <section class="facilities-grid">
-  
-    {{facility_cards}}
-  </section>
-</main>
-
-      
+      <!-- Admin Add Facility Modal -->
+      {{add_facility_form}}
     </main>
+
     <div class="container-fluid footer-container">
       <footer class="py-3 mt-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">

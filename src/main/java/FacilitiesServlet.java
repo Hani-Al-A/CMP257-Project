@@ -9,128 +9,148 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
-@WebServlet(urlPatterns = { "/facilities", "/facilities.html" })
+@WebServlet("/facilities")
 public class FacilitiesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                HttpSession session = request.getSession(false); // get session, don't create new one
-		
-	    String name = "";
-	    int user_id = -1;
-	    String email = "";
-	    boolean isAdmin = false;
-	    
-	    String htmlTemplate = loadHtmlTemplate();
-		String welcomeMessage = "";
-	    
-	    if (session != null && session.getAttribute("user") != null) {
-	        name = (String) session.getAttribute("user");
-	        user_id = (int) session.getAttribute("userId");
-	        email = (String) session.getAttribute("email");
-	        isAdmin = (boolean) session.getAttribute("isAdmin");
-	        
-	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login?action=logout'>Logout</a>"); //show a logout if logged in
-	    } else {
-	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login'>Login</a>"); // show login if not logged in
-	    }
 
-        StringBuilder facilityCardsHtml = new StringBuilder();
+        HttpSession session = request.getSession(false);
 
+        boolean isAdmin = false;
+
+        String htmlTemplate = loadHtmlTemplate();
+        if (session != null && session.getAttribute("user") != null) {
+            isAdmin = (boolean) session.getAttribute("isAdmin");
+            htmlTemplate = htmlTemplate.replace("{{login_link}}",
+                    "<a class='nav-link mx-3' href='login?action=logout'>Logout</a>");
+        } else {
+            htmlTemplate = htmlTemplate.replace("{{login_link}}",
+                    "<a class='nav-link mx-3' href='login'>Login</a>");
+        }
+
+        // Admin Add Facility button and form
+        if (isAdmin) {
+            htmlTemplate = htmlTemplate.replace("{{add_facility_button}}", getAddButton())
+                    .replace("{{add_facility_form}}", getAddForm());
+        } else {
+            htmlTemplate = htmlTemplate.replace("{{add_facility_button}}", "")
+                    .replace("{{add_facility_form}}", "");
+        }
+
+        // Generate facility cards
+        StringBuilder allCardsHtml = new StringBuilder();
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM facilities ORDER BY facility_id")) {
-
-            int lastFacilityId = -1;
-            StringBuilder subCardsHtml = new StringBuilder();
-            String facilityName = "";
-            String facilityDescription = "";
-            String facilityImage = "";
-            String facilityTimings = "";
-            String facilityAmenities = "";
+             ResultSet rs = stmt.executeQuery("SELECT * FROM facilities")) {
 
             while (rs.next()) {
                 int id = rs.getInt("facility_id");
+                String name = rs.getString("name");
+                String desc = rs.getString("description");
+                String img = rs.getString("image");
 
-                if (id != lastFacilityId && lastFacilityId != -1) {
-                    facilityCardsHtml.append(getFacilityCard(facilityName, facilityDescription,
-                            facilityImage, subCardsHtml.toString(), facilityTimings, facilityAmenities));
-                    subCardsHtml = new StringBuilder(); 
-                }
-
-                facilityName = rs.getString("name");
-                facilityDescription = rs.getString("description");
-                facilityImage = rs.getString("image_url");
-                facilityTimings = rs.getString("timings");
-                facilityAmenities = rs.getString("amenities");
-
-
-                lastFacilityId = id;
+                allCardsHtml.append(getFacilityCard(id, name, desc, img));
             }
-
-            if (lastFacilityId != -1) {
-                facilityCardsHtml.append(getFacilityCard(facilityName, facilityDescription,
-                        facilityImage, subCardsHtml.toString(), facilityTimings, facilityAmenities));
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
-            facilityCardsHtml.append("<p>Error loading facilities: ").append(e.getMessage()).append("</p>");
+            allCardsHtml.append("<p>Error loading facilities: " + e.getMessage() + "</p>");
         }
 
-        String fullHtml = htmlTemplate.replace("{{facility_cards}}", facilityCardsHtml.toString());
+        String fullHtml = htmlTemplate.replace("{{facility_cards}}", allCardsHtml.toString());
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println(fullHtml);
     }
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+        Boolean isAdmin = (session != null) ? (Boolean) session.getAttribute("isAdmin") : false;
+
+        if (isAdmin == null || !isAdmin) {
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('Access Denied: Only admins can add facilities'); window.location.href='facilities';</script>");
+            return;
+        }
+
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String image = request.getParameter("image");
+
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "INSERT INTO facilities (name, description, image) VALUES (?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, description);
+            ps.setString(3, image);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("facilities");
+    }
+
     private String loadHtmlTemplate() throws IOException {
-        try (InputStream is = getServletContext().getResourceAsStream("/facilities.html")) {
+        try (InputStream is = getServletContext().getResourceAsStream("facilities.html")) {
             Scanner scanner = new Scanner(is).useDelimiter("\\A");
             return scanner.hasNext() ? scanner.next() : "";
         }
     }
 
-    private String getFacilityCard(String name, String description, String imageUrl,
-                                   String subCardsHtml, String timings, String amenities) {
+    private String getFacilityCard(int id, String name, String description, String image_url) {
+        return "<div class='facility-card'>\n" +
+                "  <h2 class='dark-header'>" + name + "</h2>\n" +
+                "  <p>" + description + "</p>\n" +
+                "  <img src='" + image_url + "' alt='" + name + "' class='card-image' />\n" +
+                "</div>";
+    }
 
-        StringBuilder detailsHtml = new StringBuilder();
-        if ((timings != null && !timings.isEmpty()) || (amenities != null && !amenities.isEmpty())) {
-            detailsHtml.append("<div class='text-center mt-3'>")
-                       .append("<button class='btn btn-primary toggle-info'>View Opening Timings & Amenities</button>")
-                       .append("<div class='details' style='display: none; margin-top: 10px'>");
+    private String getAddButton() {
+        return "<button type=\"button\" class=\"btn btn-primary\" data-bs-toggle=\"modal\" data-bs-target=\"#addFacilityModal\">\n" +
+                "    + Add New Facility\n" +
+                "</button>";
+    }
 
-            if (timings != null && !timings.isEmpty()) {
-                detailsHtml.append("<strong>Opening Timings:</strong><ul>");
-                for (String t : timings.split(",")) {
-                    detailsHtml.append("<li>").append(t).append("</li>");
-                }
-                detailsHtml.append("</ul>");
-            }
-
-            if (amenities != null && !amenities.isEmpty()) {
-                detailsHtml.append("<strong>Amenities:</strong><ul>");
-                for (String a : amenities.split(",")) {
-                    detailsHtml.append("<li>").append(a).append("</li>");
-                }
-                detailsHtml.append("</ul>");
-            }
-
-            detailsHtml.append("</div></div>");
-        }
-
-        return "<div class='facility-card'>"
-                + "<h2 class='dark-header'>" + name + "</h2>"
-                + "<p>" + description + "</p>"
-                + (subCardsHtml.isEmpty() ? "" : "<div class='sub-grid'>" + subCardsHtml + "</div>")
-                + "<img src='" + imageUrl + "' alt='" + name + "' class='card-image full-width'/>"
-                + detailsHtml
-                + "</div>";
+    private String getAddForm() {
+        return "<div class=\"modal fade\" id=\"addFacilityModal\" tabindex=\"-1\" aria-hidden=\"true\">\n" +
+                "  <div class=\"modal-dialog modal-dialog-centered\">\n" +
+                "    <div class=\"modal-content\">\n" +
+                "      <div class=\"modal-header bg-light\">\n" +
+                "        <h5 class=\"modal-title dark-header\">Add a New Facility</h5>\n" +
+                "        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n" +
+                "      </div>\n" +
+                "      <div class=\"modal-body\">\n" +
+                "        <form action=\"facilities\" method=\"POST\">\n" +
+                "          <div class=\"mb-3\">\n" +
+                "            <label class=\"form-label text-muted small\">Facility Name</label>\n" +
+                "            <input type=\"text\" name=\"name\" class=\"form-control\" required placeholder=\"e.g. Indoor Pool\">\n" +
+                "          </div>\n" +
+                "          <div class=\"mb-3\">\n" +
+                "            <label class=\"form-label text-muted small\">Description</label>\n" +
+                "            <textarea name=\"description\" class=\"form-control\" rows=\"3\" required placeholder=\"Short description...\"></textarea>\n" +
+                "          </div>\n" +
+                "          <div class=\"mb-3\">\n" +
+                "            <label class=\"form-label text-muted small\">Image URL</label>\n" +
+                "            <input type=\"url\" name=\"image\" class=\"form-control\" required placeholder=\"https://example.com/image.jpg\">\n" +
+                "          </div>\n" +
+                "          <div class=\"d-grid gap-2 mt-4\">\n" +
+                "            <button type=\"submit\" class=\"btn btn-primary\">Add Facility</button>\n" +
+                "          </div>\n" +
+                "        </form>\n" +
+                "      </div>\n" +
+                "    </div>\n" +
+                "  </div>\n" +
+                "</div>";
     }
 }
