@@ -142,3 +142,40 @@ nav .active{ color: var(--tertiary-color) !important; }
     brightness(94%)
     contrast(88%);
 }
+
+#weather-widget {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.2); 
+        backdrop-filter: blur(10px); /* let ai decide the styling for background, backdrop-filter */
+        padding: 8px 16px;
+        border-radius: 50px;
+        color: white;
+        font-family: "Nunito", sans-serif;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        transition: transform 0.3s ease;
+      }
+
+ #weather-widget:hover {
+   transform: translateY(-2px);
+   background: rgba(255, 255, 255, 0.3);
+ }
+
+ #weather-icon {
+   font-size: 1.2rem;
+ }
+ 
+ @media (max-width: 768px) {
+   #weather-widget {
+       top: 10px;
+       right: 10px;
+       padding: 5px 12px;
+       font-size: 0.9rem;
+   }
+ }
