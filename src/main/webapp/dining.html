@@ -73,48 +73,7 @@
     </section>
 
 	{{add_restaurant_form}}
-    <div class="modal fade" id="addRestaurantModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-light">
-            <h5 class="modal-title dark-header">Add a New Restaurant</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="addRestaurant" method="POST">
-              <div class="mb-3">
-                <label class="form-label text-muted small">Restaurant Name</label>
-                <input type="text" name="name" class="form-control" required placeholder="e.g. Seaside Grill">
-              </div>
-              
-              <div class="mb-3">
-                <label class="form-label text-muted small">Cuisine Type</label>
-                <input type="text" name="cuisine" class="form-control" required placeholder="e.g. Seafood, Italian">
-              </div>
-              
-              <div class="mb-3">
-                <label class="form-label text-muted small">Description</label>
-                <textarea name="description" class="form-control" rows="3" required placeholder="Short description..."></textarea>
-              </div>
-              
-              <div class="mb-3">
-                <label class="form-label text-muted small">Tags</label>
-                <input type="text" name="tags" class="form-control" placeholder="e.g. Lunch, Dinner, Outdoor Seating">
-              </div>
-              
-              <div class="mb-3">
-                <label class="form-label text-muted small">Image URL</label>
-                <input type="url" name="image_url" class="form-control" required placeholder="https://example.com/image.jpg">
-              </div>
-              
-              <div class="d-grid gap-2 mt-4">
-                <button type="submit" class="btn btn-primary">Add Restaurant</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    
 
     <div class="container-fluid footer-container">
       <footer class="py-3 mt-4">

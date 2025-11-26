@@ -4,6 +4,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,19 +31,41 @@ public class ReservationServlet extends HttpServlet {
 		String idParam = request.getParameter("id");// comes in the query as ?id=X
 		if(idParam == null) { response.sendRedirect("dining"); return; }
 		
+		HttpSession session = request.getSession(false); // get session, don't create new one
+
+		String name = "";
+	    int user_id = -1;
+	    String email = "";
+	    boolean isAdmin = false;
+	    
+		String htmlTemplate = loadTemplate("reservation.html");
+
+		
+		if (session != null && session.getAttribute("user") != null) {
+	        name = (String) session.getAttribute("user");
+	        user_id = (int) session.getAttribute("userId");
+	        email = (String) session.getAttribute("email");
+	        isAdmin = (boolean) session.getAttribute("isAdmin");
+	        
+	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login?action=logout'>Logout</a>"); //show a logout if logged in
+	    } else {
+	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login'>Login</a>"); // show login if not logged in
+	    }
+		
 		String restName = "the restaurant";
 		try (Connection conn = DBConnection.getConnection();
 		     Statement stmt = conn.createStatement()) {
 			ResultSet rs = stmt.executeQuery("SELECT name FROM restaurants WHERE restaurant_id=" + idParam);
 			if(rs.next()) restName = rs.getString("name");
 		} catch (Exception e) { e.printStackTrace(); }
+		
+		
 
-		String html = loadTemplate("reservation.html");
-		html = html.replace("{{restaurant_name}}", restName)
+		htmlTemplate = htmlTemplate.replace("{{restaurant_name}}", restName)
 		           .replace("{{restaurant_id}}", idParam);
 		
 		response.setContentType("text/html");
-		response.getWriter().print(html);
+		response.getWriter().print(htmlTemplate);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

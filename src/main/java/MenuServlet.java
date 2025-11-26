@@ -31,6 +31,10 @@ public class MenuServlet extends HttpServlet {
 	    String email = "";
 	    boolean isAdmin = false;
 	    
+	    String idParam = request.getParameter("id");
+	    
+	    int restaurantId = Integer.parseInt(idParam);
+	    
 	    String htmlTemplate = loadHtmlTemplate();
 		String welcomeMessage = "";
 	    
@@ -44,15 +48,30 @@ public class MenuServlet extends HttpServlet {
 	    } else {
 	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login'>Login</a>"); // show login if not logged in
 	    }
+	    
+	    if (isAdmin) {
+	    	htmlTemplate = htmlTemplate
+	    			.replace("{{add_item_button}}", "<button type=\"button\" class=\"btn btn-primary\" data-bs-toggle=\"modal\" data-bs-target=\"#addMenuItemModal\">\n"
+		    			+ "                + Add Menu Item\n"
+		    			+ "             </button>")
+	    			.replace("{{add_item_form}}", getAddItemHtml())
+	    			.replace("{{restaurant_id}}", Integer.toString(restaurantId));
+	    			
+	    } else {
+	    	htmlTemplate = htmlTemplate
+	    			.replace("{{add_item_button}}", "")
+	    			.replace("{{add_item_form}}", "");
+	    }
 		
-		String idParam = request.getParameter("id");
+		
 		
 		if(idParam == null || idParam.isEmpty()) {
 			response.sendRedirect("dining.html");
 			return;
 		}
 		
-		int restaurantId = Integer.parseInt(idParam);
+		
+		
 		
 		String restaurantName = "Restaurant";
 		StringBuilder menuHtml = new StringBuilder();
@@ -120,5 +139,53 @@ public class MenuServlet extends HttpServlet {
 				+ "        </div>\n"
 				+ "    </div>\n"
 				+ "</div>";
+	}
+	
+	private String getAddItemHtml() {
+		return "<div class=\"modal fade\" id=\"addMenuItemModal\" tabindex=\"-1\" aria-hidden=\"true\">\n"
+				+ "      <div class=\"modal-dialog modal-dialog-centered\">\n"
+				+ "        <div class=\"modal-content\">\n"
+				+ "          <div class=\"modal-header bg-light\">\n"
+				+ "            <h5 class=\"modal-title dark-header\">Add New Item to {{restaurant_name}}</h5>\n"
+				+ "            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n"
+				+ "          </div>\n"
+				+ "          <div class=\"modal-body\">\n"
+				+ "            <form action=\"/addMenuItem\" method=\"POST\">\n"
+				+ "              <input type=\"hidden\" name=\"restaurant_id\" value=\"{{restaurant_id}}\">\n"
+				+ "              \n"
+				+ "              <div class=\"mb-3\">\n"
+				+ "                <label class=\"form-label text-muted small\">Item Name</label>\n"
+				+ "                <input type=\"text\" name=\"item_name\" class=\"form-control\" required placeholder=\"e.g. Truffle Fries\">\n"
+				+ "              </div>\n"
+				+ "              \n"
+				+ "              <div class=\"mb-3\">\n"
+				+ "                <label class=\"form-label text-muted small\">Category</label>\n"
+				+ "                <select name=\"category\" class=\"form-select\">\n"
+				+ "                    <option value=\"Starter\">Starter</option>\n"
+				+ "                    <option value=\"Main\">Main</option>\n"
+				+ "                    <option value=\"Dessert\">Dessert</option>\n"
+				+ "                    <option value=\"Drink\">Drink</option>\n"
+				+ "                    <option value=\"Pass\">Pass (Buffet)</option>\n"
+				+ "                </select>\n"
+				+ "              </div>\n"
+				+ "              \n"
+				+ "              <div class=\"mb-3\">\n"
+				+ "                <label class=\"form-label text-muted small\">Price (AED)</label>\n"
+				+ "                <input type=\"number\" name=\"price\" class=\"form-control\" required step=\"0.01\" min=\"0\" placeholder=\"0.00\">\n"
+				+ "              </div>\n"
+				+ "              \n"
+				+ "              <div class=\"mb-3\">\n"
+				+ "                <label class=\"form-label text-muted small\">Description</label>\n"
+				+ "                <textarea name=\"description\" class=\"form-control\" rows=\"2\" required placeholder=\"Ingredients, allergens...\"></textarea>\n"
+				+ "              </div>\n"
+				+ "              \n"
+				+ "              <div class=\"d-grid gap-2 mt-4\">\n"
+				+ "                <button type=\"submit\" class=\"btn btn-primary\">Add Item</button>\n"
+				+ "              </div>\n"
+				+ "            </form>\n"
+				+ "          </div>\n"
+				+ "        </div>\n"
+				+ "      </div>\n"
+				+ "    </div>";
 	}
 }

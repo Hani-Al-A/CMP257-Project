@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -19,7 +20,15 @@ public class AddRestaurantServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
-        if (isAdmin == null || !isAdmin) { resp.sendRedirect("login.html"); return; }
+        if (isAdmin == null || !isAdmin) { 
+        	resp.setContentType("text/html");
+        	PrintWriter out = resp.getWriter();
+        	out.println("<script>\n"
+        			+ "alert('Access Denied: You must be an administrator to add menu items.');\n"
+        			+ "window.location.href = 'login';\n" // if the user (not admin) somehow manages to send a post request to add items, there is server side validation just in case
+        			+ "</script>");
+        	return; 
+        }
 
         String name = req.getParameter("name");
         String description = req.getParameter("description");
