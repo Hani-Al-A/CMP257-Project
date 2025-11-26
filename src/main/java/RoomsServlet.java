@@ -45,6 +45,15 @@ public class RoomsServlet extends HttpServlet {
 	    } else {
 	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login'>Login</a>"); // show login if not logged in
 	    }
+	    
+	    
+	    if (isAdmin) {
+	        htmlTemplate = htmlTemplate.replace(
+	                "{{add_room_button}}",
+	                "<a href='add-room.html' class='btn btn-primary'>+ Add Room</a>");
+	    } else {
+	        htmlTemplate = htmlTemplate.replace("{{add_room_button}}", "");
+	    }
         
         StringBuilder allCardsHtml = new StringBuilder();
 
