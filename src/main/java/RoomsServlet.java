@@ -135,7 +135,7 @@ public class RoomsServlet extends HttpServlet {
 		+ "          <span class='fs-5 fw-semibold price'>AED " + priceText + "</span>\n"
 		+ "          <small class='text-muted'>/ night</small>\n"
 		+ "        </div>\n"
-		+ "        <a href='/book?id="+ id +"' class='btn btn-success btn-sm book-btn'>Book</a>\n"
+		+ "        <a href='roomBooking?id=" + id + "' class='btn btn-success btn-sm book-btn'>Book</a>\n"
 		+ "      </div>\n"
 		+ "    </div>\n"
 		+ "  </div>\n"
