@@ -93,7 +93,7 @@ public class DiningServlet extends HttpServlet {
 					String rawTags = rs.getString("tags");
 					String[] tagsArray = (rawTags != null) ? rawTags.split(",") : new String[0];
 					
-					String cardHtml = getRestaurantCard(id, rest_name, desc, img, cuisine, tagsArray);
+					String cardHtml = getRestaurantCard(id, rest_name, desc, img, cuisine, tagsArray, isAdmin);
 					
 					//to make alternating alignment for restaurant cards
 					if(i%2 == 0) {
@@ -137,30 +137,34 @@ public class DiningServlet extends HttpServlet {
 		
 	}
 	
-	private String getRestaurantCard(int id, String name, String description, String image_url, String cuisine, String[] tags) {
+	private String getRestaurantCard(int id, String name, String description, String image_url, String cuisine, String[] tags, boolean isAdmin) {
 		StringBuilder tagsHtml = new StringBuilder();
-		if (tags != null) {
-			for(String tag : tags) {
-				// We trim() to remove accidental spaces after commas
-				tagsHtml.append("<span class='badge text-bg-primary me-2'>")
-				        .append(tag.trim())
-				        .append("</span>\n");
-			}
+		for(String tag : tags) {
+			tagsHtml.append("<span class=\"badge text-bg-primary me-2\">")
+			        .append(tag.trim())
+			        .append("</span>\n");
 		}
-		String template = "<div class='row align-items-center gy-4 mb-5'>\n"
-				+ "          <div class='col-md-6'>\n"
-				+ "            <img src='"+ image_url +"' class='img-fluid rounded shadow' alt='"+ name +"'>\n"
+		
+		String adminControls = "";
+		if(isAdmin) { // shows a js confirm popup
+			adminControls = "<a href=\"deleteRestaurant?id=" + id + "\" class=\"btn btn-danger\" onclick=\"return confirm('Are you sure you want to delete " + name + "?');\">Delete</a>";
+		}
+
+		String template = "<div class=\"row align-items-center gy-4 mb-5\">\n"
+				+ "          <div class=\"col-md-6\">\n"
+				+ "            <img src=\""+ image_url +"\" class=\"img-fluid rounded shadow\" alt=\""+ name +"\">\n"
 				+ "          </div>\n"
-				+ "          <div class='col-md-6'>\n"
-				+ "            <h3 class='text-body-emphasis mb-2'>" + name + "</h3>\n"
+				+ "          <div class=\"col-md-6\">\n"
+				+ "            <h3 class=\"text-body-emphasis mb-2\">" + name + "</h3>\n"
 				+ "            <p>"+ description +"</p>\n"
-				+ "            <div class='mb-3'>\n"
-				+ "              <span class='badge text-bg-primary me-2'>"+ cuisine +"</span>\n" // after this we need a for loop somehow to add all the tags
-				+ 				tagsHtml
+				+ "            <div class=\"mb-3\">\n"
+				+ "              <span class=\"badge text-bg-primary me-2\">"+ cuisine +"</span>\n"
+				+                tagsHtml.toString()
 				+ "            </div>\n"
-				+ "            <div class='d-flex gap-3'>\n"
-				+ "              <a href='menu?id=" + id + "' class='btn btn-outline-primary'>View Menu</a>\n"
+				+ "            <div class=\"d-flex gap-3\">\n"
+				+ "              <a href=\"menu?id=" + id + "\" class=\"btn btn-outline-primary\">View Menu</a>\n"
 				+ "              <a href=\"reservation?id=" + id + "\" class=\"btn btn-primary\">Book Reservation</a>\n"
+				+                adminControls
 				+ "            </div>\n"
 				+ "          </div>\n"
 				+ "        </div>";

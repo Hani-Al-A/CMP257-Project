@@ -53,4 +53,24 @@
     <url-pattern>/reservation</url-pattern>
     <url-pattern>/reservation.html</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteRestaurantServlet</display-name>
+    <servlet-name>DeleteRestaurantServlet</servlet-name>
+    <servlet-class>DeleteRestaurantServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteRestaurantServlet</servlet-name>
+    <url-pattern>/deleteRestaurant</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteMenuItem</display-name>
+    <servlet-name>DeleteMenuItem</servlet-name>
+    <servlet-class>DeleteMenuItem</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteMenuItem</servlet-name>
+    <url-pattern>/DeleteMenuItem</url-pattern>
+  </servlet-mapping>
 </web-app>
