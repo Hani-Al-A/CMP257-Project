@@ -35,9 +35,8 @@ public class RoomBookingServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
 
-        String htmlTemplate = loadTemplate("roomBooking.html");
+        String htmlTemplate = loadTemplate("RoomBooking.html");
 
-        // login / logout link in navbar
         if (session != null && session.getAttribute("user") != null) {
             htmlTemplate = htmlTemplate.replace("{{login_link}}",
                     "<a class='nav-link mx-3' href='login?action=logout'>Logout</a>");
@@ -84,7 +83,6 @@ public class RoomBookingServlet extends HttpServlet {
         out.print(fullHtml);
     }
 
-    // HANDLE FORM SUBMIT
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

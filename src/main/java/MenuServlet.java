@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
@@ -72,7 +74,6 @@ public class MenuServlet extends HttpServlet {
 		
 		
 		
-		
 		String restaurantName = "Restaurant";
 		StringBuilder menuHtml = new StringBuilder();
 		
@@ -96,8 +97,9 @@ public class MenuServlet extends HttpServlet {
 				String itemDesc = rsMenu.getString("description");
 				double price = rsMenu.getDouble("price");
 				String category = rsMenu.getString("category");
+				int menuId = rsMenu.getInt("menu_id");
 				
-				menuHtml.append(getMenuItemCard(itemName, itemDesc, price, category));
+				menuHtml.append(getMenuItemCard(menuId, restaurantId, itemName, itemDesc, price, category, isAdmin));
 			}
 			
 		} catch (Exception e) {
@@ -115,8 +117,49 @@ public class MenuServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+        String action = request.getParameter("action");
+
+        if ("update".equals(action)) {
+            updateMenuItem(request, response);
+        } else {
+            doGet(request, response);
+        }
 	}
+	
+	private void updateMenuItem(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(false);
+        boolean isAdmin = (session != null && session.getAttribute("isAdmin") != null && (Boolean) session.getAttribute("isAdmin"));
+
+        if (!isAdmin) {
+            response.sendRedirect("login"); 
+            return;
+        }
+
+        int menuId = Integer.parseInt(request.getParameter("menu_id"));
+        int restaurantId = Integer.parseInt(request.getParameter("restaurant_id"));
+        String itemName = request.getParameter("item_name");
+        String description = request.getParameter("description");
+        double price = Double.parseDouble(request.getParameter("price"));
+        String category = request.getParameter("category");
+
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "UPDATE menu_items SET item_name = ?, description = ?, price = ?, category = ? WHERE menu_id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, itemName);
+                ps.setString(2, description);
+                ps.setDouble(3, price);
+                ps.setString(4, category);
+                ps.setInt(5, menuId);
+                
+                ps.executeUpdate();
+            }
+            response.sendRedirect("menu?id=" + restaurantId); 
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.getWriter().println("Error updating menu item: " + e.getMessage());
+        }
+    }
 	
 	private String loadHtmlTemplate() throws IOException {
 		try(InputStream is = getServletContext().getResourceAsStream("menu.html")){
@@ -126,16 +169,37 @@ public class MenuServlet extends HttpServlet {
 		}
 	}
 	
-	private String getMenuItemCard(String name, String desc, double price, String category) {
-		return "<div class='col-md-6 col-lg-4'>\n"
-				+ "    <div class='card h-100 shadow-sm'>\n"
-				+ "        <div class='card-body'>\n"
-				+ "            <div class='d-flex justify-content-between align-items-start'>\n"
-				+ "                <h5 class='text-body-emphasis mb-1'>" + name + "</h3>\n"
-				+ "                <span class='badge bg-secondary'>" + category + "</span>\n"
+	
+	private String getMenuItemCard(int menuId, int restaurantId, String name, String desc, double price, String category, boolean isAdmin) {
+		
+		
+		String adminControls = "";
+		if(isAdmin) { // only shows controls like delete and edit buttons for admins
+			adminControls = "<div class='mt-2 border-top pt-2'>" +
+                    "<button class='btn btn-sm btn-outline-primary me-2' " +
+                    "  data-bs-toggle='modal' " +
+                    "  data-bs-target='#editMenuItemModal' " +
+                    "  data-id='" + menuId + "' " +
+                    "  data-restaurant='" + restaurantId + "' " +
+                    "  data-name='" + name + "' " +
+                    "  data-price='" + price + "' " +
+                    "  data-cat='" + category + "' " +
+                    "  data-desc='" + desc + "'>" +
+                    "Edit</button>" +
+                    "<a href='deleteMenuItem?id=" + menuId + "&restaurant_id=" + restaurantId + "' class='btn btn-sm btn-outline-danger' onclick=\"return confirm('Delete " + name + "?');\">Delete</a>" +
+                    "</div>";
+		}
+		
+		return "<div class=\"col-md-6 col-lg-4\">\n"
+				+ "    <div class=\"card h-100 shadow-sm\">\n"
+				+ "        <div class=\"card-body\">\n"
+				+ "            <div class=\"d-flex justify-content-between align-items-start\">\n"
+				+ "                <h5 class=\"text-body-emphasis mb-1\">" + name + "</h5>\n"
+				+ "                <span class=\"badge bg-secondary\">" + category + "</span>\n"
 				+ "            </div>\n"
-				+ "            <h6 class='text-success fw-bold my-2'>AED " + price + "</h6>\n"
-				+ "            <p class='card-text text-muted'>" + desc + "</p>\n"
+				+ "            <h6 class=\"text-success fw-bold my-2\">AED " + price + "</h6>\n"
+				+ "            <p class=\"card-text text-muted\">" + desc + "</p>\n"
+				+              adminControls // delete button if admin
 				+ "        </div>\n"
 				+ "    </div>\n"
 				+ "</div>";

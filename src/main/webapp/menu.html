@@ -79,6 +79,48 @@
     </section>
 
     {{add_item_form}}
+    
+    <div class="modal fade" id="editMenuItemModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-light">
+            <h5 class="modal-title dark-header">Edit Menu Item</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form action="menu" method="POST" id="editForm">
+              <input type="hidden" name="action" value="update">
+              <input type="hidden" name="menu_id" id="edit-id">
+              <input type="hidden" name="restaurant_id" id="edit-rest-id">
+              
+              <div class="mb-3">
+                <label class="form-label small text-muted">Item Name</label>
+                <input type="text" name="item_name" id="edit-name" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small text-muted">Category</label>
+                <select name="category" id="edit-cat" class="form-select">
+                    <option value="Starter">Starter</option>
+                    <option value="Main">Main</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Drink">Drink</option>
+                    <option value="Pass">Pass</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small text-muted">Price (AED)</label>
+                <input type="number" name="price" id="edit-price" class="form-control" step="0.01" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small text-muted">Description</label>
+                <textarea name="description" id="edit-desc" class="form-control" rows="2" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-warning w-100">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Place your code before this line -->
     <div class="container-fluid footer-container">
@@ -108,5 +150,27 @@
       xintegrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
+    
+    <!-- small javascript to autofill the fields for the edit item form -->
+    <script>
+        const editModal = document.getElementById('editMenuItemModal')
+        editModal.addEventListener('show.bs.modal', event => {
+          const button = event.relatedTarget
+          
+          const id = button.getAttribute('data-id')
+          const restId = button.getAttribute('data-restaurant')
+          const name = button.getAttribute('data-name')
+          const price = button.getAttribute('data-price')
+          const category = button.getAttribute('data-cat')
+          const desc = button.getAttribute('data-desc')
+          
+          document.getElementById('edit-id').value = id
+          document.getElementById('edit-rest-id').value = restId
+          document.getElementById('edit-name').value = name
+          document.getElementById('edit-price').value = price
+          document.getElementById('edit-cat').value = category
+          document.getElementById('edit-desc').value = desc
+        })
+    </script>
   </body>
 </html>
