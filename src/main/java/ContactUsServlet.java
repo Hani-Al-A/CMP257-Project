@@ -82,6 +82,7 @@ public class ContactUsServlet extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
 
         out.println("<!DOCTYPE html>");
         out.println("<html lang=\"en\">");
@@ -106,6 +107,7 @@ public class ContactUsServlet extends HttpServlet {
         } else {
             out.println("    <p>You did not agree to be contacted.</p>");
         }
+        
 
         if (emailSent) {
             out.println("    <p class=\"mt-3 text-success\">A confirmation email was sent to "
@@ -118,6 +120,7 @@ public class ContactUsServlet extends HttpServlet {
             }
             out.println("</p>");
         }
+        
 
         out.println("    <a href=\"contactus\" class=\"btn btn-primary mt-3\">Back to Contact Page</a>");
         out.println("  </div>");
@@ -125,6 +128,7 @@ public class ContactUsServlet extends HttpServlet {
 
         out.println("</body>");
         out.println("</html>");
+        
     }
 
     

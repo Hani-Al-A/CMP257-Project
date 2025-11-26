@@ -45,7 +45,6 @@ updateSubmitState();
 
 // Submit handler
 form.addEventListener('submit', (e) => {
-  e.preventDefault();
 
   const name = nameInput.value.trim();
   const email = emailInput.value.trim();
