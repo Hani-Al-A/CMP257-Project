@@ -3,6 +3,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +40,6 @@ public class FacilitiesServlet extends HttpServlet {
 	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login'>Login</a>"); // show login if not logged in
 	    }
 
-        String htmlTemplate = loadHtmlTemplate();
         StringBuilder facilityCardsHtml = new StringBuilder();
 
         try (Connection conn = DBConnection.getConnection();

@@ -3,15 +3,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 @WebServlet("/addRestaurant")
 public class AddRestaurantServlet extends HttpServlet {
-    boolean isAdmin = false;
-	    
-	    String htmlTemplate = loadHtmlTemplate();
-
-         if (session != null && session.getAttribute("user") != null) {
-            isAdmin = (boolean) session.getAttribute("isAdmin");
-         }
+   
          
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -22,7 +23,7 @@ public class AddRestaurantServlet extends HttpServlet {
 
         String name = req.getParameter("name");
         String description = req.getParameter("description");
-        String cuisineType = req.getParameter("cuisine_type");
+        String cuisineType = req.getParameter("cuisine");
         String tags = req.getParameter("tags");
         String image = req.getParameter("image_url");
 
@@ -35,7 +36,7 @@ public class AddRestaurantServlet extends HttpServlet {
             ps.setString(4, tags);
             ps.setString(5, image);
             ps.executeUpdate();
-            resp.sendRedirect("admin-dashboard.html");
+            resp.sendRedirect("dining.html");
         } catch (SQLException e) {
             e.printStackTrace();
             resp.getWriter().println("Error adding restaurant: " + e.getMessage());

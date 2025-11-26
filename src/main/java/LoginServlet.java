@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 	    String email = "";
 	    boolean isAdmin = false;
 	    
-	    String htmlTemplate = loadHtmlTemplate();
+	    String htmlTemplate = loadTemplate("login.html");
 		String welcomeMessage = "";
 	    
 	    if (session != null && session.getAttribute("user") != null) {
@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 		
 		String action = request.getParameter("action");
 		if("logout".equals(action)) {
-			HttpSession session = request.getSession(false);
+			session = request.getSession(false);
 			if(session != null) {
 				session.invalidate(); // Destroys the session completely
 			}
@@ -54,17 +54,15 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 		
-		HttpSession session = request.getSession(false);
 		if(session != null && session.getAttribute("user") != null) {
 			response.sendRedirect("index.html");
 			return;
 		}
 
-		String html = loadTemplate("login.html");
-		html = html.replace("{{error_message}}", "");
+		htmlTemplate = htmlTemplate.replace("{{error_message}}", "");
 		
 		response.setContentType("text/html");
-		response.getWriter().print(html);
+		response.getWriter().print(htmlTemplate);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

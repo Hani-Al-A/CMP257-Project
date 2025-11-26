@@ -4,6 +4,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,7 +54,6 @@ public class MenuServlet extends HttpServlet {
 		
 		int restaurantId = Integer.parseInt(idParam);
 		
-		String htmlTemplate = loadHtmlTemplate();
 		String restaurantName = "Restaurant";
 		StringBuilder menuHtml = new StringBuilder();
 		

@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = { "/rooms", "/rooms.html" })
 public class RoomsServlet extends HttpServlet {
@@ -24,7 +25,7 @@ public class RoomsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-                HttpSession session = request.getSession(false); // get session, don't create new one
+        HttpSession session = request.getSession(false); // get session, don't create new one
 		
 	    String name = "";
 	    int user_id = -1;
@@ -45,7 +46,6 @@ public class RoomsServlet extends HttpServlet {
 	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login'>Login</a>"); // show login if not logged in
 	    }
         
-        String htmlTemplate = loadHtmlTemplate();
         StringBuilder allCardsHtml = new StringBuilder();
 
         String sql = "SELECT room_id, name, capacity, price_per_night, features, image_url "
@@ -57,13 +57,13 @@ public class RoomsServlet extends HttpServlet {
 
             while (rs.next()) {
                 int id = rs.getInt("room_id");
-                String name = rs.getString("name");
+                String room_name = rs.getString("name");
                 int capacity = rs.getInt("capacity");
                 double price = rs.getDouble("price_per_night");
                 String features = rs.getString("features");
                 String imageUrl = rs.getString("image_url");
 
-                String cardHtml = getRoomCard(id, name, capacity, price, features, imageUrl);
+                String cardHtml = getRoomCard(id, room_name, capacity, price, features, imageUrl);
                 allCardsHtml.append(cardHtml);
             }
 

@@ -4,7 +4,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.HttpSession;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.PasswordAuthentication;
@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 import java.util.Properties;
 import java.util.Scanner;
 
-@WebServlet("/contactus")   
+@WebServlet(urlPatterns = {"/contactus", "/contactus.html"})   
 public class ContactUsServlet extends HttpServlet {
 
 
@@ -35,7 +35,7 @@ public class ContactUsServlet extends HttpServlet {
 	    String email = "";
 	    boolean isAdmin = false;
 	    
-	    String htmlTemplate = loadHtmlTemplate();
+	    String htmlTemplate = loadTemplate("contactus.html");
 		String welcomeMessage = "";
 	    
 	    if (session != null && session.getAttribute("user") != null) {
@@ -49,11 +49,9 @@ public class ContactUsServlet extends HttpServlet {
 	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login'>Login</a>"); // show login if not logged in
 	    }
         
-        String html = loadTemplate("contactus.html"); 
-
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.print(html);
+        out.print(htmlTemplate);
     }
 
     

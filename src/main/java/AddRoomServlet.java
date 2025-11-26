@@ -3,15 +3,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 @WebServlet("/addRoom")
 public class AddRoomServlet extends HttpServlet {
-     boolean isAdmin = false;
-	    
-	    String htmlTemplate = loadHtmlTemplate();
-
-         if (session != null && session.getAttribute("user") != null) {
-            isAdmin = (boolean) session.getAttribute("isAdmin");
-         }
+     
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
     
