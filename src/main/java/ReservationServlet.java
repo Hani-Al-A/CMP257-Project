@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +29,28 @@ public class ReservationServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		HttpSession session = request.getSession(false); // get session, don't create new one
+		
+	    String name = "";
+	    int user_id = -1;
+	    String email = "";
+	    boolean isAdmin = false;
+	    
+	    String htmlTemplate = loadHtmlTemplate();
+		String welcomeMessage = "";
+	    
+	    if (session != null && session.getAttribute("user") != null) {
+	        name = (String) session.getAttribute("user");
+	        user_id = (int) session.getAttribute("userId");
+	        email = (String) session.getAttribute("email");
+	        isAdmin = (boolean) session.getAttribute("isAdmin");
+	        
+	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login?action=logout'>Logout</a>"); //show a logout if logged in
+	    } else {
+	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login'>Login</a>"); // show login if not logged in
+	    }
+		
 		String idParam = request.getParameter("id");// comes in the query as ?id=X
 		if(idParam == null) { response.sendRedirect("dining"); return; }
 		

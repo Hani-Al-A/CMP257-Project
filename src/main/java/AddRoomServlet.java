@@ -1,32 +1,48 @@
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 @WebServlet("/addRoom")
 public class AddRoomServlet extends HttpServlet {
+     boolean isAdmin = false;
+	    
+	    String htmlTemplate = loadHtmlTemplate();
 
-    private static final String URL = "jdbc:mysql://localhost:3306/coastal_haven";
-    private static final String USER = "root";
-    private static final String PASSWORD = System.getenv("DB_PASSWORD");
+         if (session != null && session.getAttribute("user") != null) {
+            isAdmin = (boolean) session.getAttribute("isAdmin");
+         }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException {
+    
+            throws IOException, ServletException {
 
-        String roomNum = req.getParameter("room_number");
-        String type = req.getParameter("type");
-        String price = req.getParameter("price");
-        String image = req.getParameter("image");
+        HttpSession session = req.getSession();
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        if (isAdmin == null || !isAdmin) { resp.sendRedirect("login.html"); return; }
 
-        try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD)) {
-            String sql = "INSERT INTO rooms (room_number, type, price, image) VALUES (?, ?, ?, ?)";
+        String name = req.getParameter("name");
+        String description = req.getParameter("description");
+        int capacity = Integer.parseInt(req.getParameter("capacity"));
+        double price = Double.parseDouble(req.getParameter("price_per_night"));
+        String features = req.getParameter("features");
+        String image = req.getParameter("image_url");
+
+        try (Connection con = DBConnection.getConnection()) {
+            String sql = "INSERT INTO rooms (name, description, capacity, price_per_night, features, image_url) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
-
-            ps.setString(1, roomNum);
-            ps.setString(2, type);
-            ps.setString(3, price);
-            ps.setString(4, image);
-
+            ps.setString(1, name);
+            ps.setString(2, description);
+            ps.setInt(3, capacity);
+            ps.setDouble(4, price);
+            ps.setString(5, features);
+            ps.setString(6, image);
             ps.executeUpdate();
-            resp.sendRedirect("admin-dashboard.html");
 
-        } catch (Exception e) {
-            resp.getWriter().println("Error: " + e.getMessage());
+            resp.sendRedirect("admin-dashboard.html");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            resp.getWriter().println("Error adding room: " + e.getMessage());
         }
     }
 }

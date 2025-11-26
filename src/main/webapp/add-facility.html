@@ -1,31 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Facility</title>
+    <link rel="stylesheet" href="css/add-facility.css">
 </head>
+
 <body>
 
-<h2>Add New Facility</h2>
+<header class="contact-header">
 
-<form action="addFacility" method="post">
+    <!-- Page Title -->
+    <div class="hero-text">
+        <h1>Add Facility</h1>
+    </div>
 
-    <label>Name:</label><br>
-    <input type="text" name="name" required><br><br>
+    <div class="hero-content">
 
-    <label>Description:</label><br>
-    <textarea name="description" required></textarea><br><br>
+        <div class="contact-card">
 
-    <label>Timings:</label><br>
-    <input type="text" name="timings" required><br><br>
+            <form action="addFacility" method="post">
 
-    <label>Amenities:</label><br>
-    <input type="text" name="amenities" required><br><br>
+                <!-- Facility Name -->
+                <div class="form-group">
+                    <label for="name">Facility Name</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
 
-    <label>Image URL:</label><br>
-    <input type="text" name="image_url" required><br><br>
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" class="form-control" rows="3" required></textarea>
+                </div>
 
-    <button type="submit">Add Facility</button>
-</form>
+                <!-- Timings -->
+                <div class="form-group">
+                    <label for="timings">Timings</label>
+                    <input type="text" id="timings" name="timings" class="form-control" placeholder="e.g., 7:00 AM – 10:00 PM">
+                </div>
+
+                <!-- Image URL -->
+                <div class="form-group">
+                    <label for="image_url">Image URL</label>
+                    <input type="text" id="image_url" name="image_url" class="form-control">
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn">Add Facility</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</header>
 
 </body>
 </html>

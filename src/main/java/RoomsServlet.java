@@ -24,6 +24,27 @@ public class RoomsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+                HttpSession session = request.getSession(false); // get session, don't create new one
+		
+	    String name = "";
+	    int user_id = -1;
+	    String email = "";
+	    boolean isAdmin = false;
+	    
+	    String htmlTemplate = loadHtmlTemplate();
+		String welcomeMessage = "";
+	    
+	    if (session != null && session.getAttribute("user") != null) {
+	        name = (String) session.getAttribute("user");
+	        user_id = (int) session.getAttribute("userId");
+	        email = (String) session.getAttribute("email");
+	        isAdmin = (boolean) session.getAttribute("isAdmin");
+	        
+	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login?action=logout'>Logout</a>"); //show a logout if logged in
+	    } else {
+	        htmlTemplate = htmlTemplate.replace("{{login_link}}", "<a class='nav-link mx-3' href='login'>Login</a>"); // show login if not logged in
+	    }
+        
         String htmlTemplate = loadHtmlTemplate();
         StringBuilder allCardsHtml = new StringBuilder();
 
