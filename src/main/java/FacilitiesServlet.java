@@ -115,25 +115,39 @@ public class FacilitiesServlet extends HttpServlet {
         }
     }
 
-    private String getFacilityCard(int id, String name, String description, String timings, String amenities, String imageUrl) {
+private String getFacilityCard(int id, String name, String description, String timings, String amenities, String imageUrl) {
         
-        StringBuilder amenitiesHtml = new StringBuilder();
-        if(amenities != null && !amenities.isEmpty()) {
-            for(String item : amenities.split(",")) {
-                amenitiesHtml.append("<span class='badge bg-light text-dark border me-1 mb-1'>")
-                             .append(item.trim())
-                             .append("</span>");
-            }
+        StringBuilder detailsHtml = new StringBuilder();
+        
+        detailsHtml.append("<div class='mt-3'>")
+                   .append("<button class='btn btn-primary toggle-info w-100'>View Timings & Amenities</button>")
+                   .append("<div class='details p-3 border rounded bg-light mt-2' style='display: none;'>");
+
+        if (timings != null && !timings.isEmpty()) {
+            detailsHtml.append("<p class='mb-2'><strong>Opening Timings:</strong><br>")
+                       .append(timings)
+                       .append("</p>");
         }
+
+        if (amenities != null && !amenities.isEmpty()) {
+            detailsHtml.append("<strong>Amenities:</strong><br><div class='d-flex flex-wrap gap-1 mt-1'>");
+            for (String item : amenities.split(",")) {
+                detailsHtml.append("<span class='badge bg-white text-dark border'>")
+                           .append(item.trim())
+                           .append("</span>");
+            }
+            detailsHtml.append("</div>");
+        }
+
+        detailsHtml.append("</div></div>");
 
         return "<div class='facility-card'>" +
                "  <h2 class='dark-header'>" + name + "</h2>" +
                "  <div class='sub-grid'>" +
                "    <div class='sub-card' style='grid-column: 1 / -1; text-align: left;'>" + 
                "       <p>" + description + "</p>" +
-               "       <p><strong>Timings:</strong> " + (timings != null ? timings : "N/A") + "</p>" +
-               "       <div class='mb-2'>" + amenitiesHtml.toString() + "</div>" +
                "       <img src='" + imageUrl + "' alt='" + name + "' class='card-image full-width' style='height: 300px; object-fit: cover;' />" +
+               "       " + detailsHtml.toString() + // add the button and hidden details here
                "    </div>" +
                "  </div>" +
                "</div>";
@@ -141,7 +155,7 @@ public class FacilitiesServlet extends HttpServlet {
 
     private String getAddButton() {
         return "<div class='d-flex justify-content-end mb-4'>" +
-               "  <button type=\"button\" class=\"btn btn-success\" data-bs-toggle=\"modal\" data-bs-target=\"#addFacilityModal\">" +
+               "  <button type=\"button\" class=\"btn btn-primary\" data-bs-toggle=\"modal\" data-bs-target=\"#addFacilityModal\">" +
                "    + Add New Facility" +
                "  </button>" +
                "</div>";

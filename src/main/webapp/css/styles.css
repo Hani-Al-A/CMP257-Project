@@ -146,7 +146,7 @@ nav .active{ color: var(--tertiary-color) !important; }
 #weather-widget {
         position: absolute;
         top: 20px;
-        right: 20px;
+        left: 20px;
         background: rgba(255, 255, 255, 0.2); 
         backdrop-filter: blur(10px); /* let ai decide the styling for background, backdrop-filter */
         padding: 8px 16px;
@@ -174,7 +174,7 @@ nav .active{ color: var(--tertiary-color) !important; }
  @media (max-width: 768px) {
    #weather-widget {
        top: 10px;
-       right: 10px;
+       left: 10px;
        padding: 5px 12px;
        font-size: 0.9rem;
    }
