@@ -40,7 +40,7 @@ public class AddRoomServlet extends HttpServlet {
             ps.setString(6, image);
             ps.executeUpdate();
 
-            resp.sendRedirect("admin-dashboard.html");
+            resp.sendRedirect("rooms.html");
         } catch (SQLException e) {
             e.printStackTrace();
             resp.getWriter().println("Error adding room: " + e.getMessage());

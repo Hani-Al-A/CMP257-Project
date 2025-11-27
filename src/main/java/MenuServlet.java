@@ -99,7 +99,10 @@ public class MenuServlet extends HttpServlet {
 				String category = rsMenu.getString("category");
 				int menuId = rsMenu.getInt("menu_id");
 				
-				menuHtml.append(getMenuItemCard(menuId, restaurantId, itemName, itemDesc, price, category, isAdmin));
+				MenuItem item = new MenuItem(menuId, itemName, itemDesc, price, category);
+
+				menuHtml.append(getMenuItemCard(item, restaurantId, isAdmin));
+				
 			}
 			
 		} catch (Exception e) {
@@ -170,23 +173,22 @@ public class MenuServlet extends HttpServlet {
 	}
 	
 	
-	private String getMenuItemCard(int menuId, int restaurantId, String name, String desc, double price, String category, boolean isAdmin) {
-		
+private String getMenuItemCard(MenuItem item, int restaurantId, boolean isAdmin) {
 		
 		String adminControls = "";
-		if(isAdmin) { // only shows controls like delete and edit buttons for admins
+		if(isAdmin) { // only shows controls for admins
 			adminControls = "<div class='mt-2 border-top pt-2'>" +
                     "<button class='btn btn-sm btn-outline-primary me-2' " +
                     "  data-bs-toggle='modal' " +
                     "  data-bs-target='#editMenuItemModal' " +
-                    "  data-id='" + menuId + "' " +
+                    "  data-id='" + item.getId() + "' " +
                     "  data-restaurant='" + restaurantId + "' " +
-                    "  data-name='" + name + "' " +
-                    "  data-price='" + price + "' " +
-                    "  data-cat='" + category + "' " +
-                    "  data-desc='" + desc + "'>" +
+                    "  data-name='" + item.getName() + "' " +
+                    "  data-price='" + item.getPrice() + "' " +
+                    "  data-cat='" + item.getCategory() + "' " +
+                    "  data-desc='" + item.getDescription() + "'>" +
                     "Edit</button>" +
-                    "<a href='deleteMenuItem?id=" + menuId + "&restaurant_id=" + restaurantId + "' class='btn btn-sm btn-outline-danger' onclick=\"return confirm('Delete " + name + "?');\">Delete</a>" +
+                    "<a href='deleteMenuItem?id=" + item.getId() + "&restaurant_id=" + restaurantId + "' class='btn btn-sm btn-outline-danger' onclick=\"return confirm('Delete " + item.getName() + "?');\">Delete</a>" +
                     "</div>";
 		}
 		
@@ -194,12 +196,12 @@ public class MenuServlet extends HttpServlet {
 				+ "    <div class=\"card h-100 shadow-sm\">\n"
 				+ "        <div class=\"card-body\">\n"
 				+ "            <div class=\"d-flex justify-content-between align-items-start\">\n"
-				+ "                <h5 class=\"text-body-emphasis mb-1\">" + name + "</h5>\n"
-				+ "                <span class=\"badge bg-secondary\">" + category + "</span>\n"
+				+ "                <h5 class=\"text-body-emphasis mb-1\">" + item.getName() + "</h5>\n"
+				+ "                <span class=\"badge bg-secondary\">" + item.getCategory() + "</span>\n"
 				+ "            </div>\n"
-				+ "            <h6 class=\"text-success fw-bold my-2\">AED " + price + "</h6>\n"
-				+ "            <p class=\"card-text text-muted\">" + desc + "</p>\n"
-				+              adminControls // delete button if admin
+				+ "            <h6 class=\"text-success fw-bold my-2\">AED " + item.getPrice() + "</h6>\n"
+				+ "            <p class=\"card-text text-muted\">" + item.getDescription() + "</p>\n"
+				+              adminControls 
 				+ "        </div>\n"
 				+ "    </div>\n"
 				+ "</div>";

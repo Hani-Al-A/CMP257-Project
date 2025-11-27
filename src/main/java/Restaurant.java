@@ -16,6 +16,7 @@ public class Restaurant {
         this.name = name;
         this.description = description;
         this.cuisineType = cuisineType;
+        this.tags = tags;
         this.imageUrl = imageUrl;
         this.menu = new ArrayList<>();
     }

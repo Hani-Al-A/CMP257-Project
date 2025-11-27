@@ -93,8 +93,11 @@ public class DiningServlet extends HttpServlet {
 					String rawTags = rs.getString("tags");
 					String[] tagsArray = (rawTags != null) ? rawTags.split(",") : new String[0];
 					
-					String cardHtml = getRestaurantCard(id, rest_name, desc, img, cuisine, tagsArray, isAdmin);
-					
+	                
+	                Restaurant restaurant = new Restaurant(id, rest_name, desc, cuisine, tagsArray, img);
+	                
+	                String cardHtml = getRestaurantCard(restaurant, isAdmin);
+	                
 					//to make alternating alignment for restaurant cards
 					if(i%2 == 0) {
 						cardHtml = cardHtml.replace("gy-4 mb-5", "gy-4 mb-5 flex-md-row-reverse");
@@ -137,33 +140,35 @@ public class DiningServlet extends HttpServlet {
 		
 	}
 	
-	private String getRestaurantCard(int id, String name, String description, String image_url, String cuisine, String[] tags, boolean isAdmin) {
+	private String getRestaurantCard(Restaurant r, boolean isAdmin) {
 		StringBuilder tagsHtml = new StringBuilder();
-		for(String tag : tags) {
-			tagsHtml.append("<span class=\"badge text-bg-primary me-2\">")
-			        .append(tag.trim())
-			        .append("</span>\n");
+		if (r.getTags() != null) {
+            for(String tag : r.getTags()) {
+                tagsHtml.append("<span class=\"badge text-bg-primary me-2\">")
+                        .append(tag.trim())
+                        .append("</span>\n");
+            }
 		}
 		
 		String adminControls = "";
-		if(isAdmin) { // shows a js confirm popup
-			adminControls = "<a href=\"deleteRestaurant?id=" + id + "\" class=\"btn btn-danger\" onclick=\"return confirm('Are you sure you want to delete " + name + "?');\">Delete</a>";
+		if(isAdmin) { 
+			adminControls = "<a href=\"deleteRestaurant?id=" + r.getId() + "\" class=\"btn btn-danger\" onclick=\"return confirm('Are you sure you want to delete " + r.getName() + "?');\">Delete</a>";
 		}
 
 		String template = "<div class=\"row align-items-center gy-4 mb-5\">\n"
 				+ "          <div class=\"col-md-6\">\n"
-				+ "            <img src=\""+ image_url +"\" class=\"img-fluid rounded shadow\" alt=\""+ name +"\">\n"
+				+ "            <img src=\""+ r.getImageUrl() +"\" class=\"img-fluid rounded shadow\" alt=\""+ r.getName() +"\">\n"
 				+ "          </div>\n"
 				+ "          <div class=\"col-md-6\">\n"
-				+ "            <h3 class=\"text-body-emphasis mb-2\">" + name + "</h3>\n"
-				+ "            <p>"+ description +"</p>\n"
+				+ "            <h3 class=\"text-body-emphasis mb-2\">" + r.getName() + "</h3>\n"
+				+ "            <p>"+ r.getDescription() +"</p>\n"
 				+ "            <div class=\"mb-3\">\n"
-				+ "              <span class=\"badge text-bg-primary me-2\">"+ cuisine +"</span>\n"
+				+ "              <span class=\"badge text-bg-primary me-2\">"+ r.getCuisineType() +"</span>\n"
 				+                tagsHtml.toString()
 				+ "            </div>\n"
 				+ "            <div class=\"d-flex gap-3\">\n"
-				+ "              <a href=\"menu?id=" + id + "\" class=\"btn btn-outline-primary\">View Menu</a>\n"
-				+ "              <a href=\"reservation?id=" + id + "\" class=\"btn btn-primary\">Book Reservation</a>\n"
+				+ "              <a href=\"menu?id=" + r.getId() + "\" class=\"btn btn-outline-primary\">View Menu</a>\n"
+				+ "              <a href=\"reservation?id=" + r.getId() + "\" class=\"btn btn-primary\">Book Reservation</a>\n"
 				+                adminControls
 				+ "            </div>\n"
 				+ "          </div>\n"
