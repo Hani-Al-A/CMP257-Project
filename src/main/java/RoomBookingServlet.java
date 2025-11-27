@@ -35,7 +35,7 @@ public class RoomBookingServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
 
-        String htmlTemplate = loadTemplate("RoomBooking.html");
+        String htmlTemplate = loadTemplate("roomBooking.html");
 
         if (session != null && session.getAttribute("user") != null) {
             htmlTemplate = htmlTemplate.replace("{{login_link}}",
@@ -54,15 +54,18 @@ public class RoomBookingServlet extends HttpServlet {
         String roomName = "Selected Room";
         double pricePerNight = 0.0;
 
+        int capacity = 2;
+
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(
-                     "SELECT name, price_per_night FROM rooms WHERE room_id = ?")) {
+                     "SELECT name, price_per_night, capacity FROM rooms WHERE room_id = ?")) {
 
             ps.setInt(1, Integer.parseInt(idParam));
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 roomName = rs.getString("name");
                 pricePerNight = rs.getDouble("price_per_night");
+                capacity = rs.getInt("capacity");
             } else {
                 response.getWriter().println("Room not found.");
                 return;
@@ -73,10 +76,19 @@ public class RoomBookingServlet extends HttpServlet {
             return;
         }
 
+        StringBuilder guestOptions = new StringBuilder();
+        for (int i = 1; i <= capacity; i++) {
+            String selected = (i == 2 && i <= capacity) ? "selected" : ""; // Default to 2 if possible
+            guestOptions.append("<option value=\"").append(i).append("\" ").append(selected).append(">")
+                        .append(i).append(" guest").append(i > 1 ? "s" : "")
+                        .append("</option>");
+        }
+
         String fullHtml = htmlTemplate
                 .replace("{{room_name}}", roomName)
                 .replace("{{room_id}}", idParam)
-                .replace("{{price_per_night}}", String.format("%.0f", pricePerNight));
+                .replace("{{price_per_night}}", String.format("%.0f", pricePerNight))
+                .replace("{{guest_options}}", guestOptions.toString());
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
