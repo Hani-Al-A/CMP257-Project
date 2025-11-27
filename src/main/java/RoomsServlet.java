@@ -48,12 +48,17 @@ public class RoomsServlet extends HttpServlet {
 	    
 	    
 	    if (isAdmin) {
-	        htmlTemplate = htmlTemplate.replace(
-	                "{{add_room_button}}",
-	                "<a href='add-room.html' class='btn btn-primary'>+ Add Room</a>");
-	    } else {
-	        htmlTemplate = htmlTemplate.replace("{{add_room_button}}", "");
-	    }
+            htmlTemplate = htmlTemplate
+                    .replace("{{add_room_button}}",
+                            "<button type='button' class='btn btn-primary' " +
+                            "data-bs-toggle='modal' data-bs-target='#addRoomModal'>" +
+                            "+ Add Room</button>")
+                    .replace("{{add_room_form}}", getAddRoomModalHtml());
+        } else {
+            htmlTemplate = htmlTemplate
+                    .replace("{{add_room_button}}", "")
+                    .replace("{{add_room_form}}", "");
+        }
         
         StringBuilder allCardsHtml = new StringBuilder();
 
@@ -152,4 +157,49 @@ public class RoomsServlet extends HttpServlet {
 		
 		return template;
 	}
+    
+    private String getAddRoomModalHtml() {
+        return "<div class=\"modal fade\" id=\"addRoomModal\" tabindex=\"-1\" aria-hidden=\"true\">\n"
+            + "  <div class=\"modal-dialog modal-dialog-centered\">\n"
+            + "    <div class=\"modal-content\">\n"
+            + "      <div class=\"modal-header bg-light\">\n"
+            + "        <h5 class=\"modal-title dark-header\">Add New Room</h5>\n"
+            + "        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n"
+            + "      </div>\n"
+            + "      <div class=\"modal-body\">\n"
+            + "        <form action=\"addRoom\" method=\"POST\">\n"
+            + "          <div class=\"mb-3\">\n"
+            + "            <label class=\"form-label small text-muted\">Room Name</label>\n"
+            + "            <input type=\"text\" name=\"name\" class=\"form-control\" required>\n"
+            + "          </div>\n"
+            + "          <div class=\"mb-3\">\n"
+            + "            <label class=\"form-label small text-muted\">Description</label>\n"
+            + "            <textarea name=\"description\" class=\"form-control\" rows=\"2\" required></textarea>\n"
+            + "          </div>\n"
+            + "          <div class=\"mb-3\">\n"
+            + "            <label class=\"form-label small text-muted\">Capacity</label>\n"
+            + "            <input type=\"number\" name=\"capacity\" class=\"form-control\" min=\"1\" required>\n"
+            + "          </div>\n"
+            + "          <div class=\"mb-3\">\n"
+            + "            <label class=\"form-label small text-muted\">Price per Night (AED)</label>\n"
+            + "            <input type=\"number\" name=\"price_per_night\" class=\"form-control\" step=\"0.01\" min=\"0\" required>\n"
+            + "          </div>\n"
+            + "          <div class=\"mb-3\">\n"
+            + "            <label class=\"form-label small text-muted\">Features (comma separated)</label>\n"
+            + "            <input type=\"text\" name=\"features\" class=\"form-control\" placeholder=\"Sea view, King bed, Balcony\">\n"
+            + "          </div>\n"
+            + "          <div class=\"mb-3\">\n"
+            + "            <label class=\"form-label small text-muted\">Image URL</label>\n"
+            + "            <input type=\"text\" name=\"image_url\" class=\"form-control\" required>\n"
+            + "          </div>\n"
+            + "          <div class=\"d-grid gap-2 mt-4\">\n"
+            + "            <button type=\"submit\" class=\"btn btn-primary\">Add Room</button>\n"
+            + "          </div>\n"
+            + "        </form>\n"
+            + "      </div>\n"
+            + "    </div>\n"
+            + "  </div>\n"
+            + "</div>\n";
+    }
+    
 }
