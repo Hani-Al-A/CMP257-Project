@@ -42,7 +42,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     margin-bottom: 2rem;
-    text-align: center;  /* centers headings and paragraphs */
+    text-align: center;  
 
 }
 
@@ -88,7 +88,7 @@
 
 .card-image.full-width {
     height: 300px;
-    grid-column: 1 / -1; /* Span full width in grid */
+    grid-column: 1 / -1; 
 }
 
 
@@ -97,7 +97,7 @@
   height: 300px;
   object-fit: cover;
   border-radius: 10px;       /* rounds the image itself */
-  display: block;            /* removes inline gaps */
+  display: block;           
 }
 
 
