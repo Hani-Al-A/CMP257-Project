@@ -147,7 +147,7 @@ private String getFacilityCard(int id, String name, String description, String t
                "    <div class='sub-card' style='grid-column: 1 / -1; text-align: left;'>" + 
                "       <p>" + description + "</p>" +
                "       <img src='" + imageUrl + "' alt='" + name + "' class='card-image full-width' style='height: 300px; object-fit: cover;' />" +
-               "       " + detailsHtml.toString() + // add the button and hidden details here
+               "       " + detailsHtml.toString() + 
                "    </div>" +
                "  </div>" +
                "</div>";
