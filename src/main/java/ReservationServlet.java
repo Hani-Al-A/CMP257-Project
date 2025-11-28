@@ -123,16 +123,26 @@ public class ReservationServlet extends HttpServlet {
 			message = "Database Error: " + e.getMessage();
 		}
 		
-		showResultPage(response, success, message);
+		showResultPage(request, response, success, message);
 	}
 	
-	private void showResultPage(HttpServletResponse response, boolean success, String msg) throws IOException {
+	
+	
+	private void showResultPage(HttpServletRequest request,HttpServletResponse response, boolean success, String msg) throws IOException {
 		String html = loadTemplate("result_page.html");
+		HttpSession session = request.getSession(false); // get session, don't create new one
+		
 		
 		html = html.replace("{{page_title}}", "Reservation Status")
 		           .replace("{{header_title}}", "Reservation Status")
 		           .replace("{{button_link}}", "dining")
 		           .replace("{{button_text}}", "Return to Dining");
+		
+		if (session != null && session.getAttribute("user") != null) {
+	        html = html.replace("{{login_link}}", "<a class='nav-link mx-3' href='login?action=logout'>Logout</a>"); //show a logout if logged in
+	    } else {
+	        html = html.replace("{{login_link}}", "<a class='nav-link mx-3' href='login'>Login</a>"); // show login if not logged in
+	    }
 		
 		if(success) {
 			html = html.replace("{{text_color}}", "text-success")
